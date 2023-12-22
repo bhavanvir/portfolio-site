@@ -1,10 +1,16 @@
 "use client";
 
 import classes from "./Header.module.css";
-import { Autocomplete, Group, Burger, rem } from "@mantine/core";
+import {
+  Autocomplete,
+  Group,
+  Burger,
+  rem,
+  Text,
+  ActionIcon,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconSearch } from "@tabler/icons-react";
-import { Text } from "@mantine/core";
+import { IconSearch, IconBrandGithub } from "@tabler/icons-react";
 import { ColorScheme } from "../ToggleColorScheme/ColorScheme";
 
 const links = [
@@ -54,6 +60,15 @@ export function Header() {
             visibleFrom="xs"
           />
           <ColorScheme />
+          <ActionIcon
+            variant="default"
+            // Setting the size to "lg" has the icon 2px shorter than the search bar
+            size="2.2em"
+            radius="md"
+            aria-label="Toggle color scheme"
+          >
+            <IconBrandGithub stroke={1.5} />
+          </ActionIcon>
         </Group>
       </div>
     </header>

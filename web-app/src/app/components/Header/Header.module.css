@@ -4,8 +4,8 @@
   background-color: var(--mantine-color-body);
   border-bottom: rem(1px) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  padding-left: var(--mantine-spacing-md);
-  padding-right: var(--mantine-spacing-md);
+  padding-left: var(--mantine-spacing-xl);
+  padding-right: var(--mantine-spacing-xl);
 }
 
 .inner {
@@ -19,7 +19,7 @@
   display: block;
   line-height: 1;
   padding: rem(8px) rem(12px);
-  border-radius: var(--mantine-radius-sm);
+  border-radius: var(--mantine-radius-md);
   text-decoration: none;
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   font-size: var(--mantine-font-size-sm);
