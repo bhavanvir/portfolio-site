@@ -16,7 +16,7 @@ import { ColorScheme } from "../ToggleColorScheme/ColorScheme";
 const links = [
   { link: "/about", label: "About" },
   { link: "/pricing", label: "Experience" },
-  { link: "/learn", label: "Projects" },
+  { link: "/learn", label: "Work" },
   { link: "/community", label: "Contact" },
 ];
 

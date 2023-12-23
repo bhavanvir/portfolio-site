@@ -24,7 +24,7 @@ const data = [
     ],
   },
   {
-    title: "Projects",
+    title: "Work",
     links: [
       { label: "Contribute", link: "#" },
       { label: "Media assets", link: "#" },
