@@ -1,6 +1,8 @@
 <script>
+  let context = "menu";
   function onClick() {
     const mobileMenu = document.querySelector(".mobile-menu");
+    context = context === "menu" ? "close" : "menu";
 
     mobileMenu?.classList.toggle("hidden");
   }
@@ -63,42 +65,30 @@
 
       <!-- Mobile button -->
       <div class="mobile-menu-button md:hidden flex items-center py-5 px-3">
-        <button on:click={onClick}>
-          <svg
-            class="h-6 w-6"
-            fill="#000000"
-            version="1.1"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 297 297"
-            xml:space="preserve"
-          >
-            <path
-              d="M280.214,39.211H16.786C7.531,39.211,0,46.742,0,55.997v24.335c0,9.256,7.531,16.787,16.786,16.787h263.428
-				c9.255,0,16.786-7.531,16.786-16.787V55.997C297,46.742,289.469,39.211,280.214,39.211z"
-            />
-            <path
-              d="M280.214,119.546H16.786C7.531,119.546,0,127.077,0,136.332v24.336c0,9.255,7.531,16.786,16.786,16.786h263.428
-				c9.255,0,16.786-7.531,16.786-16.786v-24.336C297,127.077,289.469,119.546,280.214,119.546z"
-            />
-            <path
-              d="M280.214,199.881H16.786C7.531,199.881,0,207.411,0,216.668v24.335c0,9.255,7.531,16.786,16.786,16.786h263.428
-				c9.255,0,16.786-7.531,16.786-16.786v-24.335C297,207.411,289.469,199.881,280.214,199.881z"
-            />
-          </svg>
-        </button>
+        <a
+          href="/"
+          on:click={onClick}
+          class="font-uncut text-lg hover:underline decoration-2">{context}</a
+        >
       </div>
     </div>
   </div>
 
   <!-- Mobile menu, show/hide based on menu state -->
-  <div class="mobile-menu hidden md:hidden font-uncut text-md">
+  <div class="mobile-menu hidden md:hidden font-uncut text-md py-10">
+    <div class="flex-grow border-t-2 mx-3" />
     <a href="/" class="block py-2 px-3 hover:underline decoration-2">contact</a>
+    <div class="flex-grow border-t-2 mx-3" />
     <a href="/" class="block py-2 px-3 hover:underline decoration-2">about</a>
+    <div class="flex-grow border-t-2 mx-3" />
     <a href="/" class="block py-2 px-3 hover:underline decoration-2">work</a>
+    <div class="flex-grow border-t-2 mx-3" />
     <a href="/" class="block py-2 px-3 hover:underline decoration-2"
       >experience</a
     >
+    <div class="flex-grow border-t-2 mx-3" />
   </div>
 </nav>
+
+<style>
+</style>
