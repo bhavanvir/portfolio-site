@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Uncut Sans";
+    src: local("Uncut Sans"), url("/fonts/UncutSans-Variable.ttf");
+    font-weight: normal;
+    font-display: swap;
+  }
+}

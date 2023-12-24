@@ -2,7 +2,15 @@
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        uncut: ["Uncut Sans"],
+      },
+    },
+    colors: {
+      "primary-background": "#C6BEAC",
+      "primary-text": "#000000",
+    },
   },
   plugins: [],
 };
