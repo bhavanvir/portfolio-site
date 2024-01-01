@@ -11,7 +11,7 @@
 </script>
 
 <nav>
-  <div class="px-3 mx-auto">
+  <div class="max-w-7xl mx-auto">
     <div class="flex justify-between font-uncut">
       <div class="flex space-x-4">
         <!-- Logo -->
@@ -71,6 +71,3 @@
     <div class="flex-grow border-t-2 mx-3" />
   </div>
 </nav>
-
-<style>
-</style>
