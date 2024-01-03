@@ -8,8 +8,8 @@
 
 <div class="max-w-7xl mx-auto px-2 pt-2">
   <!-- Image gallery -->
-  <div class="grid grid-cols-2 md:flex-row gap-3">
-    <div class="grid gap-3 md:flex-col">
+  <div class="hidden md:grid gap-2 md:grid-cols-2">
+    <div class="grid gap-2">
       <div>
         <img
           class="h-auto max-w-full rounded-lg"
@@ -25,7 +25,7 @@
         />
       </div>
     </div>
-    <div class="grid gap-3">
+    <div class="grid gap-2">
       <div>
         <img
           class="h-auto max-w-full rounded-lg"
@@ -43,13 +43,25 @@
     </div>
   </div>
 
+  <!-- Mobile version, show/hide based on viewport size -->
+  <div class="md:hidden">
+    <img
+      class="h-auto max-w-full rounded-lg"
+      src={LionsBayImage}
+      alt="lion's bay"
+    />
+  </div>
+
   <!-- Photo credits -->
   <div class="flex items-center">
     <svg class="h-6 w-6 mr-1">
       {@html ArrowForwardIcon}
     </svg>
     <span class="font-uncut text-sm">
-      photos by
+      <span class="hidden md:inline">photos by</span>
+      <!-- Mobile version, change to singular instead of plural -->
+      <span class="md:hidden">photo by</span>
+
       <a href="https://emasuvajac.com/" class="underline decoration-2">
         ema suvajac
       </a>

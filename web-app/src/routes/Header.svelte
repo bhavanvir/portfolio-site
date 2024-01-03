@@ -1,5 +1,6 @@
 <script>
   import LogoIcon from "$lib/assets/icons/LogoIcon.svg?raw";
+  import ArrowNarrowRightIcon from "$lib/assets/icons/ArrowNarrowRightIcon.svg?raw";
 
   let context = "menu";
   function onClick() {
