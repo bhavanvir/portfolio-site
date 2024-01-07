@@ -58,17 +58,60 @@
   </div>
 
   <!-- Mobile menu, show/hide based on menu state -->
-  <div class="mobile-menu hidden md:hidden font-uncut text-md py-10">
-    <div class="flex-grow border-t-2 mx-3" />
-    <a href="/" class="block py-2 px-3 hover:underline decoration-2">contact</a>
-    <div class="flex-grow border-t-2 mx-3" />
-    <a href="/" class="block py-2 px-3 hover:underline decoration-2">about</a>
-    <div class="flex-grow border-t-2 mx-3" />
-    <a href="/" class="block py-2 px-3 hover:underline decoration-2">work</a>
-    <div class="flex-grow border-t-2 mx-3" />
-    <a href="/" class="block py-2 px-3 hover:underline decoration-2"
-      >experience</a
-    >
-    <div class="flex-grow border-t-2 mx-3" />
+  <div class="mobile-menu hidden md:hidden font-uncut text-md py-10 mx-3">
+    <div class="flex-grow border-t-2" />
+
+    <div class="flex items-center justify-between">
+      <div>
+        <a href="/" class="block py-2 hover:underline decoration-2">contact</a>
+      </div>
+      <div>
+        <svg class="flex h-6 w-6">
+          {@html ArrowNarrowRightIcon}
+        </svg>
+      </div>
+    </div>
+
+    <div class="flex-grow border-t-2" />
+
+    <div class="flex items-center justify-between">
+      <div>
+        <a href="/" class="block py-2 hover:underline decoration-2">about</a>
+      </div>
+      <div>
+        <svg class="flex h-6 w-6">
+          {@html ArrowNarrowRightIcon}
+        </svg>
+      </div>
+    </div>
+
+    <div class="flex-grow border-t-2" />
+
+    <div class="flex items-center justify-between">
+      <div>
+        <a href="/" class="block py-2 hover:underline decoration-2">work</a>
+      </div>
+      <div>
+        <svg class="flex h-6 w-6">
+          {@html ArrowNarrowRightIcon}
+        </svg>
+      </div>
+    </div>
+
+    <div class="flex-grow border-t-2" />
+
+    <div class="flex items-center justify-between">
+      <div>
+        <a href="/" class="block py-2 hover:underline decoration-2"
+          >experience</a
+        >
+      </div>
+      <div>
+        <svg class="flex h-6 w-6">
+          {@html ArrowNarrowRightIcon}
+        </svg>
+      </div>
+    </div>
+    <div class="flex-grow border-t-2" />
   </div>
 </nav>
