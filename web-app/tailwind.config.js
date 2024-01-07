@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+let colors = require("tailwindcss/colors");
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
@@ -11,6 +12,7 @@ export default {
     colors: {
       "primary-background": "#C6BEAC",
       "primary-text": "#000000",
+      purple: colors.purple,
     },
   },
   plugins: [],

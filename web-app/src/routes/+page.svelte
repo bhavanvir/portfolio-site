@@ -1,3 +1,7 @@
+<script>
+  import Hero from "../lib/components/Hero.svelte";
+</script>
+
 <svelte:head>
   <title>Bhavanvir Rai — Software Engineer</title>
   <meta
@@ -6,8 +10,6 @@
   />
 </svelte:head>
 
-<style lang="postcss">
-  :global(html) {
-    background-color: theme(colors.primary-background);
-  }
-</style>
+<main>
+  <Hero />
+</main>

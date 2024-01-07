@@ -11,7 +11,7 @@
   }
 </script>
 
-<nav>
+<nav class="sticky top-0">
   <div class="max-w-[100rem] mx-auto">
     <div class="flex justify-between font-uncut">
       <div class="flex space-x-4">

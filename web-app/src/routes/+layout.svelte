@@ -1,14 +1,18 @@
 <script>
-  import Header from "./Header.svelte";
-  import Hero from "./Hero.svelte";
+  import Header from "../lib/components/Header.svelte";
   import "../app.css";
 </script>
 
 <div class="app">
   <Header />
-  <Hero />
 
   <main class="main">
     <slot />
   </main>
 </div>
+
+<style lang="postcss">
+  :global(body) {
+    @apply bg-primary-background;
+  }
+</style>
