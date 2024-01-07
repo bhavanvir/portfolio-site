@@ -12,7 +12,7 @@
 </script>
 
 <nav>
-  <div class="max-w-7xl mx-auto">
+  <div class="max-w-[100rem] mx-auto">
     <div class="flex justify-between font-uncut">
       <div class="flex space-x-4">
         <!-- Logo -->

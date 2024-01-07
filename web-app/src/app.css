@@ -5,7 +5,9 @@
 @layer base {
   @font-face {
     font-family: "Uncut Sans";
-    src: local("Uncut Sans"), url("/fonts/UncutSans-Variable.ttf");
+    src:
+      local("Uncut Sans"),
+      url("/fonts/UncutSans-Variable.ttf") format("truetype");
     font-weight: normal;
     font-display: swap;
   }
