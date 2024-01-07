@@ -11,7 +11,10 @@ export default {
     },
     colors: {
       "primary-background": "#C6BEAC",
+      "secondary-background": "#000000",
+      "tertiary-background": "#FFFFFF",
       "primary-text": "#000000",
+      "secondary-text": "#FFFFFF",
       purple: colors.purple,
     },
   },

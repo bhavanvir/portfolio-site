@@ -10,7 +10,8 @@
     scalable and efficient solutions to complex problems, with an emphasis on
     human-centered design.
   </div>
-  <div class="flex items-center">
+
+  <div class="flex items-center pb-12">
     <svg class="h-6 w-6 mr-1">
       {@html ArrowForwardIcon}
     </svg>
