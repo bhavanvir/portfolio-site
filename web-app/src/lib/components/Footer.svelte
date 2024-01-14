@@ -19,7 +19,6 @@
     <div class="grid grid-cols-[35%_65%]">
       <div class="py-4">
         <p class="font-bold">bhavanvir.ca © 2023-2024</p>
-        <!-- This is just here to look pretty, and to fill up space -->
         <a href="/" class="block hover:underline decoration-2">terms of use</a>
         <a href="/" class="block hover:underline decoration-2">privacy policy</a
         >
@@ -28,14 +27,13 @@
         >
       </div>
 
-      <div class="py-4">
+      <div class="py-4 flex flex-col">
         <div class="justify-start space-x-4">
           <a href="/" class="hover:underline decoration-2">linkedin</a>
           <a href="/" class="hover:underline decoration-2">github</a>
         </div>
 
-        <!-- For this particular svg, the filter-white class has to be used on the parent element, and not the svg itself -->
-        <div class="mt-[3rem] filter-white">
+        <div class="filter-white mt-[3.5rem]">
           <a
             href="/"
             class="flex items-center filter-white hover:underline decoration-2"
