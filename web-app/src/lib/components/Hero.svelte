@@ -10,22 +10,6 @@
     scalable and efficient solutions to complex problems, with an emphasis on
     human-centered design.
   </div>
-
-  <div class="flex items-center pb-12">
-    <svg class="h-6 w-6 mr-1">
-      {@html ArrowForwardIcon}
-    </svg>
-    <span class="font-uncut text-md">
-      photos by
-      <a
-        href="https://emasuvajac.com/britishcolumbiatravelphotography/"
-        class="underline decoration-2"
-      >
-        ema suvajac
-      </a>
-      of british columbia
-    </span>
-  </div>
 </div>
 
 <style>
@@ -34,6 +18,6 @@
   }
 
   .hero-spacing {
-    height: calc(100vh - 2 * var(--header-height));
+    height: calc(100vh - 1 * var(--header-height));
   }
 </style>

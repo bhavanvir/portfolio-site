@@ -1,25 +1,53 @@
 <script>
   import LogoIcon from "$lib/assets/icons/LogoIcon.svg?raw";
+  import ArrowNarrowUp from "$lib/assets/icons/ArrowNarrowUp.svg?raw";
 </script>
 
 <footer class="bg-secondary-background bottom-0">
-  <div class="max-w-[100rem] mx-auto">
-    <div>
-      <a href="/" class="flex items-center py-4 px-2">
-        <svg class="h-8 w-8 mr-2 filter-white">
-          {@html LogoIcon}
-        </svg>
-        <span class="text-secondary-text font-uncut font-bold text-lg"
-          >bhavanvir</span
-        >
-      </a>
-    </div>
+  <div
+    class="max-w-[100rem] mx-auto px-2 text-secondary-text font-uncut text-lg"
+  >
+    <a href="/" class="flex items-center py-4 px-2">
+      <svg class="h-8 w-8 mr-2 ml-[-0.5rem] filter-white">
+        {@html LogoIcon}
+      </svg>
+      <span class="font-bold text-xl">bhavanvir</span>
+    </a>
 
     <div class="flex-grow border-t-2 border-t-tertiary-background" />
 
-    <p class="py-4 font-uncut font-bold text-secondary-text">
-      bhavanvir.ca © 2023-2024
-    </p>
+    <div class="grid grid-cols-[35%_65%]">
+      <div class="py-4">
+        <p class="font-bold">bhavanvir.ca © 2023-2024</p>
+        <!-- This is just here to look pretty, and to fill up space -->
+        <a href="/" class="block hover:underline decoration-2">terms of use</a>
+        <a href="/" class="block hover:underline decoration-2">privacy policy</a
+        >
+        <a href="/" class="block hover:underline decoration-2"
+          >brand guidelines</a
+        >
+      </div>
+
+      <div class="py-4">
+        <div class="justify-start space-x-4">
+          <a href="/" class="hover:underline decoration-2">linkedin</a>
+          <a href="/" class="hover:underline decoration-2">github</a>
+        </div>
+
+        <!-- For this particular svg, the filter-white class has to be used on the parent element, and not the svg itself -->
+        <div class="mt-[3rem] filter-white">
+          <a
+            href="/"
+            class="flex items-center filter-white hover:underline decoration-2"
+          >
+            back to top
+            <svg class="h-6 w-6 mr-2">
+              {@html ArrowNarrowUp}
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </footer>
 

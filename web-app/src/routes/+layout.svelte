@@ -4,7 +4,7 @@
   import "../app.css";
 </script>
 
-<div class="app">
+<div class="app bg-primary-background">
   <Header />
 
   <main class="main">
@@ -16,6 +16,6 @@
 
 <style lang="postcss">
   :global(body) {
-    @apply bg-primary-background;
+    @apply bg-secondary-background;
   }
 </style>
