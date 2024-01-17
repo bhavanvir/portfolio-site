@@ -3,6 +3,7 @@
   import ArrowNarrowRightIcon from "$lib/assets/icons/ArrowNarrowRightIcon.svg?raw";
 
   let y = 0;
+  let prevY = 0;
 
   let context = "menu";
   function onClick() {
@@ -11,10 +12,12 @@
 
     mobileMenu?.classList.toggle("hidden");
   }
+
+  $: console.log("Scroll position:", y);
 </script>
 
 <nav
-  class={y > 50
+  class={y >= 100
     ? "sticky top-0 bg-secondary-background text-secondary-text transition-all ease-in delay-100"
     : "sticky top-0 transition-all ease-out delay-100"}
 >
@@ -25,7 +28,7 @@
         <div>
           <a href="/" class="flex items-center py-4 px-2">
             <svg
-              class={y > 50
+              class={y >= 100
                 ? "h-10 w-10 mr-2 filter-white transition-all ease-in delay-100"
                 : "h-10 w-10 mr-2 transition-all ease-out delay-100"}
             >
@@ -58,11 +61,12 @@
 
       <!-- Mobile button -->
       <div class="mobile-menu-button md:hidden flex items-center py-5 px-3">
-        <a
-          href="/"
+        <!-- Use a button instead of a link to prevent going to the top of the page -->
+        <button
           on:click={onClick}
-          class="font-uncut text-lg hover:underline decoration-2">{context}</a
-        >
+          class="font-uncut text-lg hover:underline decoration-2"
+          >{context}
+        </button>
       </div>
     </div>
   </div>

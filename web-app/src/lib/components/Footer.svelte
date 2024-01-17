@@ -16,7 +16,7 @@
 
     <div class="flex-grow border-t-2 border-t-tertiary-background" />
 
-    <div class="grid grid-cols-[35%_65%]">
+    <div class="grid lg:grid-cols-[40%_60%] grid-cols-[60%_40%]">
       <div class="py-4">
         <p class="font-bold">bhavanvir.ca © 2023-2024</p>
         <a href="/" class="block hover:underline decoration-2">terms of use</a>
@@ -28,12 +28,16 @@
       </div>
 
       <div class="py-4 flex flex-col">
-        <div class="justify-start space-x-4">
-          <a href="/" class="hover:underline decoration-2">linkedin</a>
-          <a href="/" class="hover:underline decoration-2">github</a>
+        <div class="lg:flex lg:justify-start lg:space-x-4">
+          <a href="/" class="block lg:inline-block hover:underline decoration-2"
+            >linkedin</a
+          >
+          <a href="/" class="block lg:inline-block hover:underline decoration-2"
+            >github</a
+          >
         </div>
 
-        <div class="filter-white mt-[3.5rem]">
+        <div class="filter-white lg:mt-[3.5rem] mt-[1.75rem]">
           <a
             href="/"
             class="flex items-center filter-white hover:underline decoration-2"
