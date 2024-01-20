@@ -7,23 +7,56 @@
   <div
     class="max-w-[100rem] mx-auto px-2 text-secondary-text font-uncut text-lg"
   >
-    <a href="/" class="flex items-center py-4 px-2">
-      <svg class="h-8 w-8 mr-2 ml-[-0.5rem] filter-white">
-        {@html LogoIcon}
-      </svg>
-      <span class="font-bold text-xl">bhavanvir</span>
-    </a>
+    <div class="grid lg:grid-cols-[40%_60%]">
+      <div class="py-4">
+        <a href="/" class="flex items-center py-4 px-2">
+          <svg class="h-8 w-8 mr-2 ml-[-0.5rem] filter-white">
+            {@html LogoIcon}
+          </svg>
+          <span class="font-bold text-xl">bhavanvir</span>
+        </a>
+      </div>
+
+      <div class="py-4 pb-[8rem] grid md:grid-cols-4 grid-cols-[60%_40%]">
+        <div>
+          <p class="font-bold block lg:inline-block decoration-2">contact</p>
+          <a href="/" class="block hover:underline decoration-2">email</a>
+        </div>
+
+        <div>
+          <p class="font-bold block lg:inline-block decoration-2">about</p>
+          <a href="/" class="block hover:underline decoration-2">biography</a>
+          <a href="/" class="block hover:underline decoration-2">education</a>
+        </div>
+
+        <div class="md:mt-0 mt-2">
+          <p class="font-bold block lg:inline-block decoration-2">work</p>
+          <a href="/" class="block hover:underline decoration-2">qoaba</a>
+          <a href="/" class="block hover:underline decoration-2">marketscrape</a
+          >
+        </div>
+
+        <div class="md:mt-0 mt-2">
+          <p class="font-bold block lg:inline-block decoration-2">experience</p>
+          <a href="/" class="block hover:underline decoration-2">acd systems</a>
+          <a href="/" class="block hover:underline decoration-2">arcsoft</a>
+        </div>
+      </div>
+    </div>
 
     <div class="flex-grow border-t-2 border-t-tertiary-background" />
 
     <div class="grid lg:grid-cols-[40%_60%] grid-cols-[60%_40%]">
       <div class="py-4">
         <p class="font-bold">bhavanvir.ca © 2023-2024</p>
-        <a href="/" class="block hover:underline decoration-2">terms of use</a>
-        <a href="/" class="block hover:underline decoration-2">privacy policy</a
-        >
         <a href="/" class="block hover:underline decoration-2"
-          >brand guidelines</a
+          >brand inspiration</a
+        >
+        <a href="/" class="block hover:underline decoration-2">
+          aesthetic choices
+        </a>
+        <a href="/" class="block hover:underline decoration-2"
+          >technology stack</a
         >
       </div>
 
