@@ -15,8 +15,8 @@
 
 <nav
   class={y >= 100
-    ? "sticky top-0 bg-secondary-background text-secondary-text transition-all ease-in delay-100"
-    : "sticky top-0 transition-all ease-out delay-100"}
+    ? "sticky top-0 bg-secondary-background text-secondary-text transition-all ease-in delay-50"
+    : "sticky top-0 transition-all ease-out delay-50"}
 >
   <div class="max-w-[100rem] mx-auto">
     <div class="flex justify-between font-uncut">
@@ -26,8 +26,8 @@
           <a href="/" class="flex items-center py-4 px-2">
             <svg
               class={y >= 100
-                ? "h-10 w-10 mr-2 filter-secondary-background transition-all ease-in delay-100"
-                : "h-10 w-10 mr-2 transition-all ease-out delay-100"}
+                ? "h-10 w-10 mr-2 filter-secondary-background transition-all ease-in delay-50"
+                : "h-10 w-10 mr-2 transition-all ease-out delay-50"}
             >
               {@html LogoIcon}
             </svg>
