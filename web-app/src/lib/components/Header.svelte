@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import LogoIcon from "$lib/assets/icons/LogoIcon.svg?raw";
   import ArrowNarrowRightIcon from "$lib/assets/icons/ArrowNarrowRightIcon.svg?raw";
 
@@ -10,6 +10,19 @@
     context = context === "menu" ? "close" : "menu";
 
     mobileMenu?.classList.toggle("hidden");
+  }
+
+  function scrollToSection(event: Event) {
+    event.preventDefault();
+
+    const targetId = (event?.target as Element)
+      ?.getAttribute("href")
+      ?.substring(1);
+    const targetElement = document.getElementById(targetId as string);
+
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
   }
 </script>
 
@@ -45,11 +58,15 @@
 
       <!-- Secondary navigation -->
       <div class="hidden md:flex item-center space-x-1">
-        <a href="/" class="text-xl py-5 px-3 hover:underline decoration-2"
-          >about</a
+        <a
+          href="#about"
+          on:click={scrollToSection}
+          class="text-xl py-5 px-3 hover:underline decoration-2">about</a
         >
-        <a href="/" class="text-xl py-5 px-3 hover:underline decoration-2"
-          >work</a
+        <a
+          href="#work"
+          on:click={scrollToSection}
+          class="text-xl py-5 px-3 hover:underline decoration-2">work</a
         >
         <a href="/" class="text-xl py-5 px-3 hover:underline decoration-2"
           >experience</a
@@ -89,8 +106,10 @@
 
     <div class="flex items-center justify-between">
       <div>
-        <a href="/" class="block text-xl py-2 hover:underline decoration-2"
-          >about</a
+        <a
+          href="#about"
+          on:click={scrollToSection}
+          class="block text-xl py-2 hover:underline decoration-2">about</a
         >
       </div>
       <div>
@@ -104,8 +123,10 @@
 
     <div class="flex items-center justify-between">
       <div>
-        <a href="/" class="block text-xl py-2 hover:underline decoration-2"
-          >work</a
+        <a
+          href="#work"
+          on:click={scrollToSection}
+          class="block text-xl py-2 hover:underline decoration-2">work</a
         >
       </div>
       <div>

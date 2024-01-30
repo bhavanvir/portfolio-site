@@ -1,5 +1,4 @@
 <script>
-  import LogoIcon from "$lib/assets/icons/LogoIcon.svg?raw";
   import ArrowNarrowUp from "$lib/assets/icons/ArrowNarrowUp.svg?raw";
 </script>
 
