@@ -1,9 +1,9 @@
 <script>
-  import Hero from "$lib/components/Hero.svelte";
-  import About from "$lib/components/About.svelte";
-  import Work from "$lib/components/Work.svelte";
-  import Experience from "$lib/components/Experience.svelte";
-  import Contact from "$lib/components/Contact.svelte";
+  import Hero from "$lib/components/Hero/Hero.svelte";
+  import About from "$lib/components/About/About.svelte";
+  import Work from "$lib/components/Work/Work.svelte";
+  import Experience from "$lib/components/Experience/Experience.svelte";
+  import Contact from "$lib/components/Contact/Contact.svelte";
 </script>
 
 <svelte:head>
