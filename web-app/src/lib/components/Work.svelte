@@ -9,7 +9,13 @@
   <div class="flex-grow border-t-2" />
 
   <div class="py-8">
-    <h1 class="font-uncut text-4xl pb-4">Work</h1>
+    <div class="flex justify-between items-end pb-4">
+      <h1 class="font-uncut text-4xl">Work</h1>
+
+      <a href="/">
+        <h1 class="font-uncut text-xl underline decoration-2">View All</h1>
+      </a>
+    </div>
 
     <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
       <div>
