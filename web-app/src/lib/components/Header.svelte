@@ -3,11 +3,11 @@
   import ArrowNarrowRightIcon from "$lib/assets/icons/ArrowNarrowRightIcon.svg?raw";
 
   let y = 0;
-  let context = "menu";
+  let context = "Menu";
 
   function onClick() {
     const mobileMenu = document.querySelector(".mobile-menu");
-    context = context === "menu" ? "close" : "menu";
+    context = context === "Menu" ? "Close" : "Menu";
 
     mobileMenu?.classList.toggle("hidden");
   }
@@ -44,14 +44,14 @@
             >
               {@html LogoIcon}
             </svg>
-            <span class="font-bold text-2xl">bhavanvir</span>
+            <span class="font-bold text-2xl">Bhavanvir</span>
           </a>
         </div>
 
         <!-- Primary navigation -->
         <div class="hidden md:flex items-center space-x-1">
           <a href="/" class="text-xl py-4 px-3 hover:underline decoration-2"
-            >contact
+            >Contact
           </a>
         </div>
       </div>
@@ -61,15 +61,15 @@
         <a
           href="#about"
           on:click={scrollToSection}
-          class="text-xl py-5 px-3 hover:underline decoration-2">about</a
+          class="text-xl py-5 px-3 hover:underline decoration-2">About</a
         >
         <a
           href="#work"
           on:click={scrollToSection}
-          class="text-xl py-5 px-3 hover:underline decoration-2">work</a
+          class="text-xl py-5 px-3 hover:underline decoration-2">Work</a
         >
         <a href="/" class="text-xl py-5 px-3 hover:underline decoration-2"
-          >experience</a
+          >Experience</a
         >
       </div>
 
@@ -92,7 +92,7 @@
     <div class="flex items-center justify-between">
       <div>
         <a href="/" class="block text-xl py-2 hover:underline decoration-2"
-          >contact</a
+          >Contact</a
         >
       </div>
       <div>
@@ -109,7 +109,7 @@
         <a
           href="#about"
           on:click={scrollToSection}
-          class="block text-xl py-2 hover:underline decoration-2">about</a
+          class="block text-xl py-2 hover:underline decoration-2">About</a
         >
       </div>
       <div>
@@ -126,7 +126,7 @@
         <a
           href="#work"
           on:click={scrollToSection}
-          class="block text-xl py-2 hover:underline decoration-2">work</a
+          class="block text-xl py-2 hover:underline decoration-2">Work</a
         >
       </div>
       <div>
@@ -141,7 +141,7 @@
     <div class="flex items-center justify-between">
       <div>
         <a href="/" class="block text-xl py-2 hover:underline decoration-2"
-          >experience</a
+          >Experience</a
         >
       </div>
       <div>

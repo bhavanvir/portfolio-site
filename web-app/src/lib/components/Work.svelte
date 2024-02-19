@@ -9,7 +9,7 @@
   <div class="flex-grow border-t-2" />
 
   <div class="py-8">
-    <h1 class="font-uncut text-4xl pb-4">work</h1>
+    <h1 class="font-uncut text-4xl pb-4">Work</h1>
 
     <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
       <div>
@@ -21,9 +21,9 @@
           href="/"
           class="font-uncut text-lg font-bold hover:underline decoration-2"
         >
-          marketscrape
+          Marketscrape
         </a>
-        <p class="font-uncut text-lg">sept 19, 2022 - jul 3, 2023</p>
+        <p class="font-uncut text-lg">Sept. 19, 2022 - Jul. 3, 2023</p>
       </div>
 
       <div>
@@ -34,9 +34,9 @@
         <a
           href="/"
           class="font-uncut text-lg font-bold hover:underline decoration-2"
-          >qoaba</a
+          >Qoaba</a
         >
-        <p class="font-uncut text-lg">jul 19, 2023 - present</p>
+        <p class="font-uncut text-lg">Jul. 19, 2023 - Present</p>
       </div>
 
       <div>
@@ -48,9 +48,9 @@
           href="/"
           class="font-uncut text-lg font-bold hover:underline decoration-2"
         >
-          workout planner
+          Workout Planner
         </a>
-        <p class="font-uncut text-lg">oct 20, 2023 - dec 3, 2023</p>
+        <p class="font-uncut text-lg">Oct. 20, 2023 - Dec. 3, 2023</p>
       </div>
 
       <div>
@@ -62,9 +62,9 @@
           href="/"
           class="font-uncut text-lg font-bold hover:underline decoration-2"
         >
-          day trader
+          Nightrader
         </a>
-        <p class="font-uncut text-lg">jan 16, 2024 - present</p>
+        <p class="font-uncut text-lg">Jan 16. 2024 - Present</p>
       </div>
     </div>
   </div>

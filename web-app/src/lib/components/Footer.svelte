@@ -5,7 +5,7 @@
 <footer class="bg-secondary-background bottom-0">
   <div class="max-w-[100rem] mx-auto px-2 py-4 flex justify-between">
     <div class="text-secondary-text font-uncut text-xl">
-      bhavanvir.ca © 2023-2024
+      Bhavanvir.ca © 2023-2024
     </div>
 
     <div>
@@ -20,11 +20,11 @@
         class="flex items-center"
       >
         <p
-          class="text-secondary-text font-uncut text-xl hover:underline decoration-2"
+          class="text-secondary-text bg-font-uncut text-xl hover:underline decoration-2"
         >
-          back to top
+          Back To Top
         </p>
-        <svg class="h-6 w-6 mr-2 filter-secondary-background">
+        <svg class="h-6 w-6 filter-secondary-background">
           {@html ArrowNarrowUp}
         </svg>
       </a>
