@@ -25,4 +25,5 @@
   <About />
   <Work />
   <Experience />
+  <Contact />
 </main>

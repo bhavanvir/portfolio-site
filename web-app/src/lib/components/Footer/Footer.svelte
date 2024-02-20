@@ -5,7 +5,7 @@
 <footer class="bg-secondary-background bottom-0">
   <div class="max-w-[100rem] mx-auto px-2 py-4 flex justify-between">
     <div class="text-secondary-text font-uncut text-xl">
-      Bhavanvir.ca © 2023-2024
+      Bhavanvir Rai © 2023-2024
     </div>
 
     <div>

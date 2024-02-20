@@ -50,7 +50,10 @@
 
         <!-- Primary navigation -->
         <div class="hidden md:flex items-center space-x-1">
-          <a href="/" class="text-xl py-4 px-3 hover:underline decoration-2"
+          <a
+            href="#contact"
+            on:click={scrollToSection}
+            class="text-xl py-4 px-3 hover:underline decoration-2"
             >Contact
           </a>
         </div>
@@ -91,8 +94,10 @@
 
     <div class="flex items-center justify-between">
       <div>
-        <a href="/" class="block text-xl py-2 hover:underline decoration-2"
-          >Contact</a
+        <a
+          href="#contact"
+          on:click={scrollToSection}
+          class="block text-xl py-2 hover:underline decoration-2">Contact</a
         >
       </div>
       <div>
