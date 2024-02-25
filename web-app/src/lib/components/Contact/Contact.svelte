@@ -12,9 +12,11 @@
     currentMinutes = currentTime.getMinutes();
     currentSeconds = currentTime.getSeconds();
 
-    if (Number(currentHours) > 12) {
-      currentHours = currentHours - 12;
+    if (currentHours >= 12) {
       timeOfDay = "P.M.";
+      if (currentHours > 12) {
+        currentHours = currentHours - 12;
+      }
     } else {
       timeOfDay = "A.M.";
     }
@@ -23,9 +25,10 @@
   // Update time on component mount
   onMount(() => {
     updateTime();
+
     // Update time every second
     const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval); // Clear interval on component destroy
+    return () => clearInterval(interval);
   });
 </script>
 
