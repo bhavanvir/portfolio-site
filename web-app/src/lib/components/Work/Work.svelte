@@ -39,7 +39,18 @@
           >
             {project.title}
           </a>
-          <p class="font-uncut text-lg">{project.date}</p>
+          {#each project.tags ?? [] as tag}
+            <span
+              class="bg-blue-100 text-blue-800 text-xs font-medium font-uncut me-2 px-2.5 py-0.5 rounded"
+              >{tag}</span
+            >
+          {/each}
+          <p class="font-uncut text-md text-slate-700">{project.date}</p>
+          {#if project.description}
+            <p class="font-uncut text-lg text-justify mt-4">
+              {project.description}
+            </p>
+          {/if}
         </div>
       {/each}
     </div>

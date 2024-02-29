@@ -16,6 +16,8 @@ export default {
       "primary-text": "#000000",
       "secondary-text": "#ffffff",
       red: colors.red,
+      blue: colors.blue,
+      slate: colors.blueGray,
     },
   },
   plugins: [],
