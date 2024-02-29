@@ -12,6 +12,26 @@
     ProjectCover3,
     ProjectCover4,
   ];
+
+  const tagColors: Record<string, string> = {
+    Python: "bg-emerald-100 text-emerald-800",
+    Go: "bg-emerald-100 text-emerald-800",
+
+    FastAPI: "bg-amber-100 text-amber-800",
+    Gin: "bg-amber-100 text-amber-800",
+
+    MongoDB: "bg-rose-100 text-rose-800",
+    PostgreSQL: "bg-rose-100 text-rose-800",
+
+    Bootstrap: "bg-violet-100 text-violet-800",
+    DaisyUI: "bg-violet-100 text-violet-800",
+    Mantine: "bg-violet-100 text-violet-800",
+
+    Streamlit: "bg-cyan-100 text-cyan-800",
+    Django: "bg-cyan-100 text-cyan-800",
+    React: "bg-cyan-100 text-cyan-800",
+    "Next.js": "bg-cyan-100 text-cyan-800",
+  };
 </script>
 
 <div id="work" class="max-w-[100rem] px-2 mx-auto">
@@ -30,18 +50,23 @@
       {#each data as project}
         <div>
           <a href="/">
-            <img src={projectCovers[project.id]} alt="Project Cover" />
+            <img
+              src={projectCovers[project.id]}
+              alt="Project Cover"
+              class="rounded-lg aspect-square"
+            />
           </a>
 
           <a
-            href="/"
+            href={project.github}
+            target="_blank"
             class="font-uncut text-lg font-bold hover:underline decoration-2"
           >
             {project.title}
           </a>
           {#each project.tags ?? [] as tag}
             <span
-              class="bg-blue-100 text-blue-800 text-xs font-medium font-uncut me-2 px-2.5 py-0.5 rounded"
+              class={`text-xs font-medium font-uncut me-2 px-2.5 py-0.5 rounded-lg ${tagColors[tag]}`}
               >{tag}</span
             >
           {/each}

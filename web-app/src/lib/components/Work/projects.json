@@ -4,7 +4,7 @@
     "title": "Marketscrape",
     "date": "Sept. 2022 - Jul. 3 2023",
     "github": "https://github.com/orgs/Marketscrape/repositories",
-    "description": "A web application that analyzes Facebook Marketplace listings to provide insights on the best deals. The application is built using Django in the backend and Bootstrap in the frontend.",
+    "description": "A web application that analyzes Facebook Marketplace listings to provide insights on the best deals, allowing for significant leverage in bargaining.",
     "tags": ["Django", "Bootstrap"]
   },
   {
@@ -12,7 +12,7 @@
     "title": "Qoaba",
     "date": "Jul. 19, 2023 - Present",
     "github": "https://github.com/orgs/Qoaba/repositories",
-    "description": "A social media platform that allows users to share and study interview questions. The platform is built using Next.js in the frontend and FastAPI in the backend. Authorization is implemented using NextAuth. The database is managed using MongoDB.",
+    "description": "A social media platform that allows users to share and study technical interview questions, and adapts to their unique styles.",
     "tags": ["Next.js", "Mantine", "FastAPI", "MongoDB"]
   },
   {
@@ -20,7 +20,7 @@
     "title": "Workout Planner",
     "date": "Oct. 20, 2023 - Dec. 3, 2023",
     "github": "https://github.com/bhavanvir/workout-planner",
-    "description": "A web application that recommends workout plans based on selected muscle groups. The application is hosted on Streamlit and the data was collected and sanitized from ExRx. A constraint satisfaction problem is solved to generate the workout plans. The application is built using Python.",
+    "description": "A web application that recommends workout plans based on selected muscle groups, and optimizes based on maximal muscle recruitment.",
     "tags": ["Streamlit", "Python"]
   },
   {
@@ -28,7 +28,7 @@
     "title": "Nightrader",
     "date": "Jan 16. 2024 - Present",
     "github": "https://github.com/bhavanvir/day-trader",
-    "description": "A microservice based stock trading platform that allows users to buy and sell stocks in real-time. The platform is built using Go in the backend and React in the frontend. The database is managed using PostgreSQL.",
-    "tags": ["React", "DaisyUI", "TailwindCSS"]
+    "description": "A microservice based stock trading platform that allows users to buy and sell stocks in real-time, as well as manage their portfolio.",
+    "tags": ["React", "DaisyUI", "PostgreSQL", "Gin"]
   }
 ]
