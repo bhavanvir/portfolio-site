@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
 
   let currentHours = 0;
   let currentMinutes = 0;
@@ -33,9 +33,7 @@
 </script>
 
 <div id="contact" class="max-w-[100rem] px-2 mx-auto">
-  <div class="flex-grow border-t-2" />
-
-  <div class="py-8">
+  <div class="pt-8">
     <div class="flex justify-between items-end pb-4">
       <div>
         <h1 class="font-uncut text-4xl">Contact</h1>

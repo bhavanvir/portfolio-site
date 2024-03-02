@@ -90,8 +90,6 @@
 
   <!-- Mobile menu, show/hide based on menu state -->
   <div class="mobile-menu hidden md:hidden font-uncut text-md py-10 mx-3">
-    <div class="flex-grow border-t-2" />
-
     <div class="flex items-center justify-between">
       <div>
         <a
@@ -106,8 +104,6 @@
         </svg>
       </div>
     </div>
-
-    <div class="flex-grow border-t-2" />
 
     <div class="flex items-center justify-between">
       <div>
@@ -124,8 +120,6 @@
       </div>
     </div>
 
-    <div class="flex-grow border-t-2" />
-
     <div class="flex items-center justify-between">
       <div>
         <a
@@ -141,8 +135,6 @@
       </div>
     </div>
 
-    <div class="flex-grow border-t-2" />
-
     <div class="flex items-center justify-between">
       <div>
         <a href="/" class="block text-xl py-2 hover:underline decoration-2"
@@ -155,7 +147,6 @@
         </svg>
       </div>
     </div>
-    <div class="flex-grow border-t-2" />
   </div>
 </nav>
 

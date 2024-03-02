@@ -1,17 +1,5 @@
 <script lang="ts">
-  import ProjectCover1 from "$lib/assets/images/ProjectCover1.avif";
-  import ProjectCover2 from "$lib/assets/images/ProjectCover2.avif";
-  import ProjectCover3 from "$lib/assets/images/ProjectCover3.avif";
-  import ProjectCover4 from "$lib/assets/images/ProjectCover4.avif";
-
   import data from "$lib/components/Work/projects.json";
-
-  const projectCovers = [
-    ProjectCover1,
-    ProjectCover2,
-    ProjectCover3,
-    ProjectCover4,
-  ];
 
   const tagColors: Record<string, string> = {
     Python: "bg-emerald-100 text-emerald-800",
@@ -24,7 +12,7 @@
     PostgreSQL: "bg-rose-100 text-rose-800",
 
     Bootstrap: "bg-violet-100 text-violet-800",
-    DaisyUI: "bg-violet-100 text-violet-800",
+    TailwindCSS: "bg-violet-100 text-violet-800",
     Mantine: "bg-violet-100 text-violet-800",
 
     Streamlit: "bg-cyan-100 text-cyan-800",
@@ -35,9 +23,7 @@
 </script>
 
 <div id="work" class="max-w-[100rem] px-2 mx-auto">
-  <div class="flex-grow border-t-2" />
-
-  <div class="py-8">
+  <div class="pt-8">
     <div class="flex justify-between items-end pb-4">
       <h1 class="font-uncut text-4xl">Work</h1>
 
@@ -46,17 +32,9 @@
       </a>
     </div>
 
-    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+    <div class="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
       {#each data as project}
-        <div>
-          <a href="/">
-            <img
-              src={projectCovers[project.id]}
-              alt="Project Cover"
-              class="rounded-lg aspect-square"
-            />
-          </a>
-
+        <div class="border-2 p-6">
           <a
             href={project.github}
             target="_blank"
@@ -70,6 +48,7 @@
               >{tag}</span
             >
           {/each}
+
           <p class="font-uncut text-md text-slate-700">{project.date}</p>
           {#if project.description}
             <p class="font-uncut text-lg text-justify mt-4">
