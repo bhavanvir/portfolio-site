@@ -1,5 +1,5 @@
 <div id="about" class="max-w-[100rem] px-2 mx-auto">
-  <div class="grid md:grid-cols-2 py">
+  <div class="grid md:grid-cols-[40%_60%] py">
     <div>
       <h1 class="font-uncut text-4xl">About</h1>
     </div>

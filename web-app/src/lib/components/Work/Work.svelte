@@ -44,7 +44,7 @@
           </a>
           {#each project.tags ?? [] as tag}
             <span
-              class={`text-xs font-medium font-uncut me-2 px-2.5 py-0.5 rounded-lg ${tagColors[tag]}`}
+              class={`inline-block text-xs font-medium font-uncut me-2 px-2.5 py-0.5 rounded-lg ${tagColors[tag]}`}
               >{tag}</span
             >
           {/each}
@@ -52,7 +52,7 @@
           <p class="font-uncut text-md text-slate-700">{project.date}</p>
           {#if project.description}
             <p class="font-uncut text-lg text-justify mt-4">
-              {project.description}
+              {@html project.description}
             </p>
           {/if}
         </div>
