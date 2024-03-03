@@ -2,23 +2,9 @@
   import data from "$lib/components/Work/projects.json";
 
   const tagColors: Record<string, string> = {
-    Python: "bg-emerald-100 text-emerald-800",
-    Go: "bg-emerald-100 text-emerald-800",
-
-    FastAPI: "bg-amber-100 text-amber-800",
-    Gin: "bg-amber-100 text-amber-800",
-
-    MongoDB: "bg-rose-100 text-rose-800",
-    PostgreSQL: "bg-rose-100 text-rose-800",
-
-    Bootstrap: "bg-violet-100 text-violet-800",
-    TailwindCSS: "bg-violet-100 text-violet-800",
-    Mantine: "bg-violet-100 text-violet-800",
-
-    Streamlit: "bg-cyan-100 text-cyan-800",
-    Django: "bg-cyan-100 text-cyan-800",
-    React: "bg-cyan-100 text-cyan-800",
-    "Next.js": "bg-cyan-100 text-cyan-800",
+    Completed: "bg-green-100 text-green-800",
+    "In Progress": "bg-yellow-100 text-yellow-800",
+    "On Hold": "bg-red-100 text-red-800",
   };
 </script>
 
@@ -44,7 +30,7 @@
           </a>
           {#each project.tags ?? [] as tag}
             <span
-              class={`inline-block text-xs font-medium font-uncut me-2 px-2.5 py-0.5 rounded-lg ${tagColors[tag]}`}
+              class={`inline-block text-xs font-medium font-uncut me-2 px-2.5 py-0.5 ${tagColors[tag]}`}
               >{tag}</span
             >
           {/each}
