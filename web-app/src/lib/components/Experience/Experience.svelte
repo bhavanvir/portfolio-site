@@ -28,12 +28,17 @@
             policy updates across all cloud sites, including those not managed
             by UVic's Research Computing Service, in Canada.
           </li>
+          <li>
+            Increased test coverage by 14% for a Django application by profiling
+            and identifying areas of the codebase that were not covered by unit
+            tests, and writing new tests to cover those areas.
+          </li>
         </ul>
       </div>
 
       <div class="border-2 p-6">
         <h1 class="font-uncut text-xl">
-          Quality Assurance Analyst at ACDSystems
+          Quality Assurance Analyst at ACD Systems
         </h1>
         <p class="font-uncut text-md text-slate-700">
           May. 3, 2021 - Dec. 31, 2021
