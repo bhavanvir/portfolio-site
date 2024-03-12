@@ -71,8 +71,10 @@
           on:click={scrollToSection}
           class="text-xl py-5 px-3 hover:underline decoration-2">Work</a
         >
-        <a href="/" class="text-xl py-5 px-3 hover:underline decoration-2"
-          >Experience</a
+        <a
+          href="#experience"
+          on:click={scrollToSection}
+          class="text-xl py-5 px-3 hover:underline decoration-2">Experience</a
         >
       </div>
 
@@ -137,8 +139,10 @@
 
     <div class="flex items-center justify-between">
       <div>
-        <a href="/" class="block text-xl py-2 hover:underline decoration-2"
-          >Experience</a
+        <a
+          href="#experience"
+          on:click={scrollToSection}
+          class="block text-xl py-2 hover:underline decoration-2">Experience</a
         >
       </div>
       <div>
