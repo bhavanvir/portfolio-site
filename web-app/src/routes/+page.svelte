@@ -2,7 +2,6 @@
   import Hero from "$lib/components/Hero/Hero.svelte";
   import About from "$lib/components/About/About.svelte";
   import Work from "$lib/components/Work/Work.svelte";
-  import Experience from "$lib/components/Experience/Experience.svelte";
   import Contact from "$lib/components/Contact/Contact.svelte";
 </script>
 
@@ -24,6 +23,5 @@
   <Hero />
   <About />
   <Work />
-  <Experience />
   <Contact />
 </main>

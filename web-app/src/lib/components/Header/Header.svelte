@@ -71,11 +71,6 @@
           on:click={scrollToSection}
           class="text-xl py-5 px-3 hover:underline decoration-2">Work</a
         >
-        <a
-          href="#experience"
-          on:click={scrollToSection}
-          class="text-xl py-5 px-3 hover:underline decoration-2">Experience</a
-        >
       </div>
 
       <!-- Mobile button -->
@@ -128,21 +123,6 @@
           href="#work"
           on:click={scrollToSection}
           class="block text-xl py-2 hover:underline decoration-2">Work</a
-        >
-      </div>
-      <div>
-        <svg class="flex h-6 w-6">
-          {@html ArrowNarrowRightIcon}
-        </svg>
-      </div>
-    </div>
-
-    <div class="flex items-center justify-between">
-      <div>
-        <a
-          href="#experience"
-          on:click={scrollToSection}
-          class="block text-xl py-2 hover:underline decoration-2">Experience</a
         >
       </div>
       <div>
