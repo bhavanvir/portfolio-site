@@ -12,10 +12,6 @@
   <div class="pt-8">
     <div class="flex justify-between items-end pb-4">
       <h1 class="font-uncut text-4xl">Work</h1>
-
-      <a href="/">
-        <h1 class="font-uncut text-xl underline decoration-2">View All</h1>
-      </a>
     </div>
 
     <div class="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
@@ -30,7 +26,7 @@
           </a>
           {#each project.tags ?? [] as tag}
             <span
-              class={`inline-block text-xs font-medium font-uncut me-2 px-2.5 py-0.5 ${tagColors[tag]}`}
+              class={`inline-block text-xs font-medium font-uncut me-2 px-2.5 py-0.5 border-2 ${tagColors[tag]}`}
               >{tag}</span
             >
           {/each}
