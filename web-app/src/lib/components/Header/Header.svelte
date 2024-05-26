@@ -1,6 +1,6 @@
 <script lang="ts">
   import LogoIcon from "$lib/assets/icons/LogoIcon.svg?raw";
-  import ArrowNarrowRightIcon from "$lib/assets/icons/ArrowNarrowRightIcon.svg?raw";
+  import { MoveRight } from "svelte-lucide";
 
   let y = 0;
   let context = "Menu";
@@ -96,9 +96,7 @@
         >
       </div>
       <div>
-        <svg class="flex h-6 w-6">
-          {@html ArrowNarrowRightIcon}
-        </svg>
+        <MoveRight class=" flex h-6 w-6" />
       </div>
     </div>
 
@@ -111,9 +109,7 @@
         >
       </div>
       <div>
-        <svg class="flex h-6 w-6">
-          {@html ArrowNarrowRightIcon}
-        </svg>
+        <MoveRight class=" flex h-6 w-6" />
       </div>
     </div>
 
@@ -126,9 +122,7 @@
         >
       </div>
       <div>
-        <svg class="flex h-6 w-6">
-          {@html ArrowNarrowRightIcon}
-        </svg>
+        <MoveRight class=" flex h-6 w-6" />
       </div>
     </div>
   </div>

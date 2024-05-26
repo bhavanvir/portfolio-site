@@ -1,5 +1,5 @@
 <script>
-  import ArrowNarrowUp from "$lib/assets/icons/ArrowNarrowUp.svg?raw";
+  import { MoveUp } from "svelte-lucide";
 </script>
 
 <footer class="bg-secondary-background bottom-0">
@@ -20,21 +20,12 @@
         class="flex items-center"
       >
         <p
-          class="text-secondary-text bg-font-uncut text-xl hover:underline decoration-2"
+          class="text-secondary-text bg-font-uncut text-xl hover:underline decoration-2 flex space-x-1 items-center"
         >
           Back To Top
+          <MoveUp class="h-6 w-6" />
         </p>
-        <svg class="h-6 w-6 filter-secondary-background">
-          {@html ArrowNarrowUp}
-        </svg>
       </a>
     </div>
   </div>
 </footer>
-
-<style>
-  .filter-secondary-background {
-    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(322deg)
-      brightness(101%) contrast(102%);
-  }
-</style>
