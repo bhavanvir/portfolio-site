@@ -1,12 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import BellRingingIcon from "$lib/assets/icons/BellRingingIcon.svg?raw";
+  import { Linkedin, Facebook, Github, Mail } from "svelte-lucide";
 
   let currentHours = 0;
   let currentMinutes = 0;
   let currentSeconds = 0;
   let timeOfDay = "A.M.";
-  let showAlert = false;
+  let statusColour = "bg-red-500";
 
   const updateTime = () => {
     const currentTime = new Date();
@@ -22,6 +22,25 @@
     } else {
       timeOfDay = "A.M.";
     }
+
+    updateStatusColour(currentTime);
+  };
+
+  const updateStatusColour = (currentTime: Date) => {
+    // 0 (Sunday) to 6 (Saturday)
+    const dayOfWeek = currentTime.getDay();
+    const hours = currentTime.getHours();
+
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      // Weekend
+      statusColour = "bg-yellow-500";
+    } else if (hours >= 9 && hours < 17) {
+      // Weekday 9 AM to 5 PM
+      statusColour = "bg-green-500";
+    } else {
+      // Outside of working hours
+      statusColour = "bg-red-500";
+    }
   };
 
   // Update time on component mount
@@ -32,59 +51,16 @@
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   });
-
-  let name = "";
-  let email = "";
-  let message = "";
-
-  function areAllFieldsFilled(name: string, email: string, message: string) {
-    return !name || !email || !message;
-  }
-
-  $: isDisabled = areAllFieldsFilled(name, email, message);
-
-  function sendEmail(name: string, email: string, message: string) {
-    // Simulate a successful submission
-    showAlert = true;
-
-    // Clear form fields after a successful submission
-    name = "";
-    email = "";
-    message = "";
-
-    // Hide the alert after 3 seconds
-    setTimeout(() => {
-      showAlert = false;
-    }, 3000);
-  }
 </script>
 
-<div id="contact" class="max-w-[100rem] px-2 mx-auto">
-  {#if showAlert}
-    <div
-      class="fixed top-0 left-0 right-0 z-50 bg-gray-900 bg-opacity-50 flex items-center justify-center h-screen"
-    >
-      <div class="bg-green-100 text-green-800 p-4 border-2">
-        <div class="flex items-center">
-          <svg class="w-6 h-6 mr-2">
-            {@html BellRingingIcon}
-          </svg>
-          <p class="font-uncut text-xl mb-2">Notification</p>
-        </div>
-        <p class="font-uncut text-lg">
-          Your message has been sent, I'll get back to you as soon as I can.
-        </p>
-      </div>
-    </div>
-  {/if}
-
+<div id="contact" class="max-w-[100rem] px-2 mx-auto pb-8">
   <div class="pt-8">
     <div class="flex justify-between items-end pb-4">
       <div>
         <h1 class="font-uncut text-4xl">Contact</h1>
       </div>
 
-      <div>
+      <div class="border-2 relative inline-flex items-center p-2">
         <h2 class="font-uncut text-lg">
           {currentHours}:{currentMinutes < 10
             ? `0${currentMinutes}`
@@ -93,56 +69,78 @@
             : currentSeconds}
           {timeOfDay} GMT-8
         </h2>
+        <span
+          class={`absolute inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white ${statusColour} border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900`}
+        >
+        </span>
       </div>
     </div>
 
-    <p class="font-uncut text-xl">
-      Have a question, proposal, or just want to chat? Feel free to reach out to
-      me.
-    </p>
-    <form class="py-4" name="msgForm">
-      <div class="grid grid-cols-2 grid-rows-5 gap-6">
-        <div class="row-span-2">
-          <input
-            required
-            type="name"
-            placeholder="Elon Musk"
-            class="w-full h-full p-2 border-2"
-            bind:value={name}
-          />
-        </div>
-        <div class="row-span-2">
-          <input
-            required
-            type="email"
-            placeholder="info@spacex.com"
-            class="w-full h-full p-2 border-2"
-            bind:value={email}
-          />
-        </div>
-        <div class="col-span-2 row-span-5">
-          <textarea
-            required
-            placeholder="We need your help with the Mars mission, are you in? No one else knows how to fly a rocket, so..."
-            rows="5"
-            class="w-full p-2 border-2 resize-none"
-            bind:value={message}
-          />
-        </div>
-      </div>
-    </form>
+    <div class="md:grid grid-cols-2">
+      <p class="font-uncut text-xl">
+        Have a question, proposal, or just want to chat? Feel free to reach out
+        to me at any of the platforms I'm active on.
+      </p>
 
-    <div class="flex justify-end pb-4">
-      <button
-        type="submit"
-        class="font-uncut text-lg px-4 py-2 border-2"
-        disabled={areAllFieldsFilled(name, email, message)}
-        class:cursor-not-allowed={isDisabled}
-        class:opacity-25={isDisabled}
-        on:click={() => sendEmail(name, email, message)}
+      <div
+        class="pt-4 flex justify-start space-x-1 sm:grid grid-flow-row gap-1 sm:pt-0 sm:space-x-0"
       >
-        Send
-      </button>
+        <p>
+          <a
+            href="https://www.linkedin.com/in/bhavanvir/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center space-x-1"
+          >
+            <Linkedin />
+            <div class="hidden md:block">
+              <span class="font-uncut text-xl">bhavanvir</span>
+            </div>
+          </a>
+        </p>
+
+        <p class="relative">
+          <a
+            href="https://www.facebook.com/bhavanvirs"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center space-x-1"
+          >
+            <Facebook />
+            <div class="hidden md:block">
+              <span class="font-uncut text-xl">bhavanvirs</span>
+            </div>
+          </a>
+        </p>
+
+        <p>
+          <a
+            href="https://www.github.com/bhavanvir"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center space-x-1"
+          >
+            <Github />
+            <div class="hidden md:block">
+              <span class="font-uncut text-xl">bhavanvir</span>
+            </div>
+          </a>
+        </p>
+
+        <p>
+          <a
+            href="mailto:me@bhavanvir.ca"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center space-x-1"
+          >
+            <Mail />
+            <div class="hidden md:block">
+              <span class="font-uncut text-xl">me@bhavanvir.ca</span>
+            </div>
+          </a>
+        </p>
+      </div>
     </div>
   </div>
 </div>
