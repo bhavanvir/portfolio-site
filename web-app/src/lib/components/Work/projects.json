@@ -29,6 +29,6 @@
     "date": "Jan 16. 2024 - Present",
     "github": "https://github.com/bhavanvir/day-trader",
     "description": "A microservice based stock trading platform that allows users to buy and sell stocks in real-time by setting either market or limit orders, as well as manage their portfolio. A matching engine using a Pro-Rata algorithm is used to match buy and sell orders, and a RESTful API is used to communicate with the front-end, using minted session tokens for authentication.",
-    "tags": ["In Progress"]
+    "tags": ["Completed"]
   }
 ]
