@@ -1,5 +1,5 @@
 <script>
-  import { MoveUp } from "svelte-lucide";
+  import { ArrowUp } from "svelte-lucide";
 </script>
 
 <footer class="bg-secondary-background bottom-0">
@@ -22,8 +22,8 @@
         <p
           class="text-secondary-text bg-font-uncut text-xl hover:underline decoration-2 flex space-x-1 items-center"
         >
-          Back To Top
-          <MoveUp class="h-6 w-6" />
+          <span>Back To Top</span>
+          <ArrowUp class="h-6 w-6" />
         </p>
       </a>
     </div>

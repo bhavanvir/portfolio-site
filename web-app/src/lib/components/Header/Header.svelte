@@ -1,6 +1,6 @@
 <script lang="ts">
   import LogoIcon from "$lib/assets/icons/LogoIcon.svg?raw";
-  import { MoveRight } from "svelte-lucide";
+  import { ArrowRight, Menu, X } from "svelte-lucide";
 
   let y = 0;
   let context = "Menu";
@@ -33,7 +33,7 @@
 >
   <div class="max-w-[100rem] mx-auto">
     <div class="flex justify-between font-uncut">
-      <div class="flex space-x-4">
+      <div class="flex space-x-4 pl-1">
         <!-- Logo -->
         <div>
           <a href="/" class="flex items-center py-4 px-2">
@@ -79,7 +79,12 @@
         <button
           on:click={onClick}
           class="font-uncut text-xl hover:underline decoration-2"
-          >{context}
+        >
+          {#if context === "Menu"}
+            <Menu class="h-6 w-6" />
+          {:else if context === "Close"}
+            <X class="h-6 w-6" />
+          {/if}
         </button>
       </div>
     </div>
@@ -96,7 +101,7 @@
         >
       </div>
       <div>
-        <MoveRight class=" flex h-6 w-6" />
+        <ArrowRight class=" flex h-6 w-6" />
       </div>
     </div>
 
@@ -109,7 +114,7 @@
         >
       </div>
       <div>
-        <MoveRight class=" flex h-6 w-6" />
+        <ArrowRight class=" flex h-6 w-6" />
       </div>
     </div>
 
@@ -122,7 +127,7 @@
         >
       </div>
       <div>
-        <MoveRight class=" flex h-6 w-6" />
+        <ArrowRight class=" flex h-6 w-6" />
       </div>
     </div>
   </div>

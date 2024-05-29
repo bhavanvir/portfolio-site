@@ -1,6 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { Linkedin, Facebook, Github, Mail } from "svelte-lucide";
+  import {
+    Linkedin,
+    Facebook,
+    Github,
+    Mail,
+    ArrowUpRight,
+  } from "svelte-lucide";
 
   let currentHours = 0;
   let currentMinutes = 0;
@@ -93,8 +99,11 @@
             class="flex items-center space-x-1"
           >
             <Linkedin />
-            <div class="hidden md:block">
+            <div
+              class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
+            >
               <span class="font-uncut text-xl">bhavanvir</span>
+              <ArrowUpRight />
             </div>
           </a>
         </p>
@@ -107,8 +116,11 @@
             class="flex items-center space-x-1"
           >
             <Facebook />
-            <div class="hidden md:block">
+            <div
+              class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
+            >
               <span class="font-uncut text-xl">bhavanvirs</span>
+              <ArrowUpRight />
             </div>
           </a>
         </p>
@@ -121,8 +133,11 @@
             class="flex items-center space-x-1"
           >
             <Github />
-            <div class="hidden md:block">
+            <div
+              class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
+            >
               <span class="font-uncut text-xl">bhavanvir</span>
+              <ArrowUpRight />
             </div>
           </a>
         </p>
@@ -135,8 +150,11 @@
             class="flex items-center space-x-1"
           >
             <Mail />
-            <div class="hidden md:block">
+            <div
+              class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
+            >
               <span class="font-uncut text-xl">me@bhavanvir.ca</span>
+              <ArrowUpRight />
             </div>
           </a>
         </p>
