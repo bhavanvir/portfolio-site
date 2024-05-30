@@ -76,10 +76,7 @@
       <!-- Mobile button -->
       <div class="mobile-menu-button md:hidden flex items-center py-5 px-3">
         <!-- Use a button instead of a link to prevent going to the top of the page -->
-        <button
-          on:click={onClick}
-          class="font-uncut text-xl hover:underline decoration-2"
-        >
+        <button on:click={onClick} class="text-xl hover:underline decoration-2">
           {#if context === "Menu"}
             <Menu class="h-6 w-6" />
           {:else if context === "Close"}
@@ -91,7 +88,7 @@
   </div>
 
   <!-- Mobile menu, show/hide based on menu state -->
-  <div class="mobile-menu hidden md:hidden font-uncut text-md py-10 mx-3">
+  <div class="mobile-menu hidden md:hidden text-md py-10 mx-3">
     <div class="flex items-center justify-between">
       <div>
         <a

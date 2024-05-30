@@ -6,12 +6,6 @@
 </script>
 
 <svelte:head>
-  <link
-    rel="preload"
-    href="../../static/fonts/UncutSans-Variable.ttf"
-    as="font"
-    type="font/ttf"
-  />
   <title>Bhavanvir Rai — Software Engineer</title>
   <meta
     name="description"

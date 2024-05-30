@@ -63,11 +63,11 @@
   <div class="pt-8">
     <div class="flex justify-between items-center pb-4">
       <div>
-        <h1 class="font-uncut text-4xl">Contact</h1>
+        <h1 class="text-4xl">Contact</h1>
       </div>
 
       <div class="border-2 relative inline-flex items-center p-2">
-        <h2 class="font-uncut text-lg">
+        <h2 class="text-lg">
           {currentHours}:{currentMinutes < 10
             ? `0${currentMinutes}`
             : currentMinutes}:{currentSeconds < 10
@@ -83,7 +83,7 @@
     </div>
 
     <div class="md:grid grid-cols-2 gap-6">
-      <p class="font-uncut text-xl">
+      <p class="text-xl">
         Have a question, proposal, or just want to chat? Feel free to reach out
         to me at any of the platforms I'm active on.
       </p>
@@ -102,7 +102,7 @@
             <div
               class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
             >
-              <span class="font-uncut text-xl">bhavanvir</span>
+              <span class="text-xl">bhavanvir</span>
               <ArrowUpRight />
             </div>
           </a>
@@ -119,7 +119,7 @@
             <div
               class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
             >
-              <span class="font-uncut text-xl">bhavanvirs</span>
+              <span class="text-xl">bhavanvirs</span>
               <ArrowUpRight />
             </div>
           </a>
@@ -136,7 +136,7 @@
             <div
               class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
             >
-              <span class="font-uncut text-xl">bhavanvir</span>
+              <span class="text-xl">bhavanvir</span>
               <ArrowUpRight />
             </div>
           </a>
@@ -153,7 +153,7 @@
             <div
               class="hidden md:space-x-1 md:flex md:justify-start md:items-center hover:underline decoration-2"
             >
-              <span class="font-uncut text-xl">me@bhavanvir.ca</span>
+              <span class="text-xl">me@bhavanvir.ca</span>
               <ArrowUpRight />
             </div>
           </a>

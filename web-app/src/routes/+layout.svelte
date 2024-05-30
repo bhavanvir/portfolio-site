@@ -11,16 +11,6 @@
   inject({ mode: dev ? "development" : "production" });
 </script>
 
-<svelte:head>
-  <link
-    rel="preload"
-    href="/fonts/UncutSans-Variable.ttf"
-    as="font"
-    type="font/ttf"
-    crossorigin
-  />
-</svelte:head>
-
 <div class="app bg-primary-background">
   <Header />
 

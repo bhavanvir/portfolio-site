@@ -5,11 +5,6 @@ let colors = require("tailwindcss/colors");
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
-    extend: {
-      fontFamily: {
-        uncut: ["Uncut Sans"],
-      },
-    },
     colors: {
       "primary-background": "#ffffff",
       "secondary-background": "#000000",

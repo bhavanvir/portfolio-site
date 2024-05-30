@@ -4,7 +4,7 @@
 
 <div class="max-w-screen-2xl px-2 mx-auto">
   <div class="hero-spacing flex items-center">
-    <p class="font-uncut text-4xl sm:text-6xl">
+    <p class="text-4xl sm:text-6xl">
       {$page.status}
       {$page?.error?.message} — Looks like you've come across some uncharted territory,
       here take these 🧭🗺️
