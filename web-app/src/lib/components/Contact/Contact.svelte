@@ -61,7 +61,7 @@
 
 <div id="contact" class="max-w-screen-2xl px-2 mx-auto pb-8">
   <div class="pt-8">
-    <div class="flex justify-between items-end pb-4">
+    <div class="flex justify-between items-center pb-4">
       <div>
         <h1 class="font-uncut text-4xl">Contact</h1>
       </div>
