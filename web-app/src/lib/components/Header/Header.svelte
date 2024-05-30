@@ -31,7 +31,7 @@
     ? "sticky top-0 bg-secondary-background text-secondary-text transition-all ease-in delay-50"
     : "sticky top-0 transition-all ease-out delay-50"}
 >
-  <div class="max-w-[100rem] mx-auto">
+  <div class="max-w-screen-2xl mx-auto">
     <div class="flex justify-between font-uncut">
       <div class="flex space-x-4 pl-1">
         <!-- Logo -->

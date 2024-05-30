@@ -1,4 +1,4 @@
-<div class="max-w-[100rem] px-2 mx-auto">
+<div class="max-w-screen-2xl px-2 mx-auto">
   <div class="hero-spacing flex items-center">
     <p class="font-uncut text-4xl sm:text-6xl">
       <span class="underline decoration-wavy decoration-red-500">Bhavanvir</span

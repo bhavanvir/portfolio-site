@@ -59,7 +59,7 @@
   });
 </script>
 
-<div id="contact" class="max-w-[100rem] px-2 mx-auto pb-8">
+<div id="contact" class="max-w-screen-2xl px-2 mx-auto pb-8">
   <div class="pt-8">
     <div class="flex justify-between items-end pb-4">
       <div>
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="md:grid grid-cols-2">
+    <div class="md:grid grid-cols-2 gap-6">
       <p class="font-uncut text-xl">
         Have a question, proposal, or just want to chat? Feel free to reach out
         to me at any of the platforms I'm active on.

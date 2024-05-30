@@ -8,7 +8,7 @@
   };
 </script>
 
-<div id="work" class="max-w-[100rem] px-2 mx-auto">
+<div id="work" class="max-w-screen-2xl px-2 mx-auto">
   <div class="pt-8">
     <div class="flex justify-between items-end pb-4">
       <h1 class="font-uncut text-4xl">Work</h1>

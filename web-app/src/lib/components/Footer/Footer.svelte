@@ -3,7 +3,7 @@
 </script>
 
 <footer class="bg-secondary-background bottom-0">
-  <div class="max-w-[100rem] mx-auto px-2 py-4 flex justify-between">
+  <div class="max-w-screen-2xl mx-auto px-2 py-4 flex justify-between">
     <div class="text-secondary-text font-uncut text-xl">
       Bhavanvir Rai © 2023-2024
     </div>
