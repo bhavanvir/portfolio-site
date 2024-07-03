@@ -1,10 +1,3 @@
-<script>
-  import Hero from "$lib/components/Hero/Hero.svelte";
-  import About from "$lib/components/About/About.svelte";
-  import Work from "$lib/components/Work/Work.svelte";
-  import Contact from "$lib/components/Contact/Contact.svelte";
-</script>
-
 <svelte:head>
   <title>Bhavanvir Rai — Software Engineer</title>
   <meta
@@ -14,8 +7,5 @@
 </svelte:head>
 
 <main>
-  <Hero />
-  <About />
-  <Work />
-  <Contact />
+  <h1>Yo</h1>
 </main>
