@@ -1,3 +1,7 @@
+<script>
+  import NavBar from "$lib/components/NavBar.svelte";
+</script>
+
 <svelte:head>
   <title>Bhavanvir Rai — Software Engineer</title>
   <meta
@@ -7,5 +11,12 @@
 </svelte:head>
 
 <main>
+  <NavBar />
   <h1>Yo</h1>
 </main>
+
+<style>
+  :global(body) {
+    @apply bg-primary-foreground;
+  }
+</style>
