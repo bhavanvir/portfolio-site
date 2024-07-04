@@ -11,10 +11,14 @@
   />
 </svelte:head>
 
-<main class="grid grid-flow-row">
+<main class="min-h-screen flex flex-col">
   <NavBar />
-  <div class="">
-    <h1>Yo</h1>
+  <div class="flex-1 flex items-center justify-center max-w-4xl mx-auto">
+    <h1 class="text-white text-4xl">
+      Software Engineer based in British Columbia designing scalable and
+      efficient solutions to complex problems, with an emphasis on
+      human-centered design.
+    </h1>
   </div>
   <Footer />
 </main>
