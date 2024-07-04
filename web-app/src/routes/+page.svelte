@@ -22,11 +22,6 @@
 <style>
   :global(body) {
     /* Gradient from https://cssgradient.io/gradient-backgrounds/ */
-    background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
+    background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
   }
 </style>
