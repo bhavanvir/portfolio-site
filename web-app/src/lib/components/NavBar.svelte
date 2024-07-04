@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <div class="w-full flex justify-center p-4">
   <div
     class="w-full max-w-lg p-2 flex justify-center glass-effect rounded-full"
