@@ -1,16 +1,15 @@
 <script>
-  import { Button } from "$lib/components/ui/button";
 </script>
 
 <div class="w-full flex justify-center p-4">
   <div
-    class="w-full max-w-lg p-2 flex justify-center space-x-4 items-center glass-effect rounded-full"
+    class="w-full max-w-lg p-2 flex justify-center glass-effect rounded-full"
   >
-    <Button class="rounded-full border-none h-6" variant="secondary"
-      >About</Button
+    <span class="rounded-full border-none h-6 text-white p-2 flex items-center"
+      >About</span
     >
-    <Button class="rounded-full border-none h-6" variant="secondary"
-      >Projects</Button
+    <span class="rounded-full border-none h-6 text-white p-2 flex items-center"
+      >Projects</span
     >
   </div>
 </div>
