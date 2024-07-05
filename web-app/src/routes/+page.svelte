@@ -19,7 +19,10 @@
   <div class="flex-1 flex items-center justify-center mx-auto max-w-4xl text-center">
     <div>
       <div class="flex items-center justify-center pb-4">
-        <MapPin class="mr-2 text-primary-foreground" /> <span class="text-lg">Victoria, British Columbia</span>
+        <MapPin class="mr-2 text-primary-foreground" /> 
+        <span class="text-lg">
+          Victoria, British Columbia
+        </span>
       </div>
         <h1 class="text-4xl">
           Software Engineer designing scalable and efficient 
