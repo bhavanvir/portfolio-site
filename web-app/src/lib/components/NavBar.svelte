@@ -1,9 +1,5 @@
 <script>
-  import { currentSlide } from '$lib/store.js';
-
-  function changeSlide(slide) {
-    $currentSlide = slide;
-  }
+  import { currentSlide, setCurrentSlide } from '$lib/store.js';
 </script>
 
 <div class="w-full flex justify-center p-4">
@@ -11,21 +7,21 @@
     <span
       class="rounded-full border-none h-6 p-2 flex items-center text-lg cursor-pointer"
       class:active={$currentSlide === "About"}
-      on:click={() => changeSlide("About")}
+      on:click={() => setCurrentSlide("About")}
     >
       About
     </span>
     <span
       class="rounded-full border-none h-6 p-2 flex items-center text-lg cursor-pointer"
       class:active={$currentSlide === "Projects"}
-      on:click={() => changeSlide("Projects")}
+      on:click={() => setCurrentSlide("Projects")}
     >
       Projects
     </span>
     <span
       class="rounded-full border-none h-6 p-2 flex items-center text-lg cursor-pointer"
       class:active={$currentSlide === "Contact"}
-      on:click={() => changeSlide("Contact")}
+      on:click={() => setCurrentSlide("Contact")}
     >
       Contact
     </span>
