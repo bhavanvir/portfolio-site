@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex items-center justify-center py-4">
-  <div class="flex justify-between w-full max-w-lg">
+  <div class="flex justify-center space-x-2 w-full max-w-lg">
     <span
       class="rounded-full glass-effect p-2 flex items-center justify-center"
     >
