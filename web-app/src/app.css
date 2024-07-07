@@ -84,6 +84,17 @@
   .font-shippori-antique {
     font-family: "Shippori Antique", sans-serif;
   }
+
+  .bg-gradient {
+    /* Gradient from https://cssgradient.io/gradient-backgrounds/ */
+    background-color: #ff9a8b;
+    background-image: linear-gradient(
+      90deg,
+      #ff9a8b 0%,
+      #ff6a88 55%,
+      #ff99ac 100%
+    );
+  }
 }
 
 @layer base {
@@ -91,7 +102,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-primary-foreground font-shippori-mincho;
+    @apply bg-gradient text-primary-foreground font-shippori-mincho;
   }
 }
-
