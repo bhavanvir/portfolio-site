@@ -36,9 +36,8 @@
   </div>
 </div>
 
-<style>
+<style lang="css">
   .active {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
+    @apply text-primary-foreground/50;
   }
 </style>
