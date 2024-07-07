@@ -7,7 +7,7 @@
     class="w-full max-w-lg p-2 flex justify-center glass-effect rounded-full"
   >
     <span
-      class="rounded-full border-none h-6 p-2 flex items-center text-lg cursor-pointer"
+      class="rounded-full border-none h-6 p-2 flex items-center text-lg"
       class:active={$currentSlide === "About"}
       on:click={() => setCurrentSlide("About")}
       role="button"
@@ -16,7 +16,7 @@
       About
     </span>
     <span
-      class="rounded-full border-none h-6 p-2 flex items-center text-lg cursor-pointer"
+      class="rounded-full border-none h-6 p-2 flex items-center text-lg"
       class:active={$currentSlide === "Projects"}
       on:click={() => setCurrentSlide("Projects")}
       role="button"
@@ -25,7 +25,7 @@
       Projects
     </span>
     <span
-      class="rounded-full border-none h-6 p-2 flex items-center text-lg cursor-pointer"
+      class="rounded-full border-none h-6 p-2 flex items-center text-lg"
       class:active={$currentSlide === "Contact"}
       on:click={() => setCurrentSlide("Contact")}
       role="button"

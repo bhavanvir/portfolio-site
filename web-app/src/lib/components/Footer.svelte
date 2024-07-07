@@ -14,7 +14,7 @@
 <div class="flex items-center justify-center py-4">
   <div class="flex justify-center space-x-2 w-full max-w-lg">
     <span
-      class="rounded-full glass-effect p-2 flex items-center justify-center"
+      class="rounded-full glass-effect p-2 flex items-center justify-center hover:bg-primary-foreground/50"
       on:click={() => cycleSlides(-1)}
       role="button"
       tabindex="0"
@@ -22,7 +22,7 @@
       <ChevronLeft class="h-6 w-6 text-primary-foreground" />
     </span>
     <span
-      class="rounded-full glass-effect p-2 flex items-center justify-center"
+      class="rounded-full glass-effect p-2 flex items-center justify-center hover:bg-primary-foreground/50"
       on:click={() => cycleSlides(1)}
       role="button"
       tabindex="0"
