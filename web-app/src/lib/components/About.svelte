@@ -5,7 +5,7 @@
 <div class="max-w-4xl">
   <div class="flex items-center justify-center pb-4">
     <MapPin class="mr-2 text-primary-foreground" /> 
-    <span class="text-lg">
+    <span class="text-xl">
       Victoria, British Columbia
     </span>
   </div>
