@@ -11,7 +11,7 @@
   }
 </script>
 
-<div class="flex items-center justify-center py-4">
+<nav class="flex items-center justify-center py-4 sticky bottom-0">
   <div class="flex justify-center space-x-2 w-full max-w-lg">
     <span
       class="rounded-full glass-effect p-2 flex items-center justify-center hover:bg-primary-foreground/50"
@@ -30,4 +30,4 @@
       <ChevronRight class="h-6 w-6 text-primary-foreground" />
     </span>
   </div>
-</div>
+</nav>

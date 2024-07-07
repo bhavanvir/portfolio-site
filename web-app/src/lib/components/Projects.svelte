@@ -38,12 +38,13 @@
   {#each projects as project}
     <Card.Root>
       <Card.Header>
-        <Card.Title class="flex justify-between">
+        <Card.Title class="flex justify-between items-center">
           <div class="flex items-center">
             <a
               href={project.github}
               target="_blank"
-              class="hover:underline decoration-2 text-2xl">{project.title}</a
+              class="hover:underline decoration-2 text-xl md:text-2xl"
+              >{project.title}</a
             >
             <ArrowUpRight class="ml-2" />
           </div>
@@ -56,9 +57,11 @@
             >
           {/if}
         </Card.Title>
-        <Card.Description class="text-lg">{project.date}</Card.Description>
+        <Card.Description class="text-md md:text-lg"
+          >{project.date}</Card.Description
+        >
       </Card.Header>
-      <Card.Content class="text-xl">
+      <Card.Content class="text-lg md:text-xl">
         {@html project.description}
       </Card.Content>
     </Card.Root>

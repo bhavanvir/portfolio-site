@@ -47,14 +47,14 @@
     {:else if status === "Online"}
       <Bell class="mr-2" />
     {/if}
-    <span class="text-xl">{currentMessage}</span>
+    <span class="text-lg md:text-xl">{currentMessage}</span>
   </div>
 
-  <h1 class="text-4xl text-center">
+  <h1 class="text-2xl md:text-4xl text-center">
     Have a question, proposal, or just want to chat? Reach out!
   </h1>
 
-  <div class="flex pt-4 text-xl gap-2 space-x-4 justify-center">
+  <div class="flex pt-4 text-lg md:text-xl gap-2 space-x-4 justify-center">
     <span class="flex items-center justify-end hover:underline decoration-2">
       <a href="mailto:me@bhavanvir.ca">Email</a>
       <ArrowRight class="ml-2" />
