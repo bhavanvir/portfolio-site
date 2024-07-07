@@ -28,10 +28,3 @@
   </div>
   <Footer />
 </main>
-
-<style>
-  :global(body) {
-    /* Gradient from https://cssgradient.io/gradient-backgrounds/ */
-    background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-  }
-</style>
