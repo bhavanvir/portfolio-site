@@ -13,8 +13,8 @@
     name="description"
     content="Bhavanvir Rai's personal website. Functions as a living portfolio."
   />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 </svelte:head>
 
 <main class="min-h-screen flex flex-col px-8">

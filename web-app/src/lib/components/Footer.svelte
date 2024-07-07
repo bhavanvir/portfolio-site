@@ -1,11 +1,12 @@
-<script>
-  import { currentSlide, setCurrentSlide } from '$lib/store.js';
+<script lang="ts">
+  import { currentSlide, setCurrentSlide } from "$lib/store.js";
   import { ChevronLeft, ChevronRight } from "svelte-lucide";
 
   let slides = ["About", "Projects", "Contact"];
-  function cycleSlides(direction) {
+  function cycleSlides(direction: number) {
     let currentSlideIndex = slides.indexOf($currentSlide);
-    let nextSlideIndex = (currentSlideIndex + direction + slides.length) % slides.length;
+    let nextSlideIndex =
+      (currentSlideIndex + direction + slides.length) % slides.length;
     setCurrentSlide(slides[nextSlideIndex]);
   }
 </script>
@@ -15,15 +16,18 @@
     <span
       class="rounded-full glass-effect p-2 flex items-center justify-center"
       on:click={() => cycleSlides(-1)}
+      role="button"
+      tabindex="0"
     >
       <ChevronLeft class="h-6 w-6 text-primary-foreground" />
     </span>
     <span
       class="rounded-full glass-effect p-2 flex items-center justify-center"
       on:click={() => cycleSlides(1)}
+      role="button"
+      tabindex="0"
     >
       <ChevronRight class="h-6 w-6 text-primary-foreground" />
     </span>
   </div>
 </div>
-

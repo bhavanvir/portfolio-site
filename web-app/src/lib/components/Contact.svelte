@@ -4,7 +4,8 @@
 
 <div class="max-w-2xl">
   <h1 class="text-4xl text-center">
-    Have a question, proposal, or just want to chat? Feel free to reach out to me at any of the platforms I'm active on 
+    Have a question, proposal, or just want to chat? Feel free to reach out to
+    me at any of the platforms I'm active on
   </h1>
 
   <div class="max-w-sm mx-auto pt-4">
