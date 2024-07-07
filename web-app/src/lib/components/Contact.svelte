@@ -38,7 +38,7 @@
   });
 </script>
 
-<div class="max-w-2xl">
+<div class="max-w-4xl">
   <div class="pb-4 flex justify-center items-center">
     {#if status === "Offline"}
       <BellOff class="mr-2" />
@@ -51,8 +51,7 @@
   </div>
 
   <h1 class="text-4xl text-center">
-    Have a question, proposal, or just want to chat? Feel free to reach out to
-    me at any of the platforms I'm active on
+    Have a question, proposal, or just want to chat? Reach out!
   </h1>
 
   <div class="flex pt-4 text-xl gap-2 space-x-4 justify-center">

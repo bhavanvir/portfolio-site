@@ -5,6 +5,7 @@
   import Footer from "$lib/components/Footer.svelte";
   import About from "$lib/components/About.svelte";
   import Contact from "$lib/components/Contact.svelte";
+  import Projects from "$lib/components/Projects.svelte";
 </script>
 
 <svelte:head>
@@ -24,6 +25,8 @@
       <About />
     {:else if $currentSlide === "Contact"}
       <Contact />
+    {:else if $currentSlide === "Projects"}
+      <Projects />
     {/if}
   </div>
   <Footer />
