@@ -1,7 +1,9 @@
 <script>
-  import { MapPin } from "svelte-lucide";
+  import { currentSlide } from "$lib/store.js";
+
   import NavBar from "$lib/components/NavBar.svelte";
   import Footer from "$lib/components/Footer.svelte";
+  import About from "$lib/components/About.svelte";
 </script>
 
 <svelte:head>
@@ -16,21 +18,11 @@
 
 <main class="min-h-screen flex flex-col">
   <NavBar />
-  <div class="flex-1 flex items-center justify-center mx-auto max-w-4xl text-center">
-    <div>
-      <div class="flex items-center justify-center pb-4">
-        <MapPin class="mr-2 text-primary-foreground" /> 
-        <span class="text-lg">
-          Victoria, British Columbia
-        </span>
-      </div>
-        <h1 class="text-4xl">
-          Software Engineer designing scalable and efficient 
-          solutions to complex problems, with an emphasis on 
-          human-centered design
-        </h1>
-      </div>
-    </div>
+  <div class="flex-1 flex items-center justify-center mx-auto">
+    {#if $currentSlide === "About"}
+      <About />
+    {/if}
+  </div>
   <Footer />
 </main>
 
