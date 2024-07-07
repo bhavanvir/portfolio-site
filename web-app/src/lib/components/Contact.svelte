@@ -1,9 +1,15 @@
 <script>
   import { onMount } from "svelte";
-  import { ArrowUpRight, ArrowRight } from "svelte-lucide";
+  import {
+    ArrowUpRight,
+    ArrowRight,
+    Bell,
+    BellRing,
+    BellOff,
+  } from "svelte-lucide";
 
+  let status = "";
   let currentMessage = "";
-  let circleColor = "";
 
   const updateMessageAndColor = () => {
     const now = new Date();
@@ -11,16 +17,16 @@
     const hour = now.getHours();
     if (day === 0 || day === 6) {
       // Weekend
-      currentMessage = "I'm unlikely to respond promptly on weekends";
-      circleColor = "bg-red-500";
+      currentMessage = "I'm unlikely to respond on weekends";
+      status = "Offline";
     } else if (hour < 9 || hour >= 17) {
       // Weekdays after 5 PM or before 9 AM
       currentMessage = "I may be slower to respond outside of work hours";
-      circleColor = "bg-yellow-500";
+      status = "Away";
     } else {
       // Weekdays between 9 AM and 5 PM
       currentMessage = "I should be able to respond promptly!";
-      circleColor = "bg-green-500";
+      status = "Online";
     }
   };
 
@@ -34,7 +40,13 @@
 
 <div class="max-w-2xl">
   <div class="pb-4 flex justify-center items-center">
-    <div class={`h-4 w-4 rounded-full ${circleColor} mr-2`}></div>
+    {#if status === "Offline"}
+      <BellOff class="mr-2" />
+    {:else if status === "Away"}
+      <BellRing class="mr-2" />
+    {:else if status === "Online"}
+      <Bell class="mr-2" />
+    {/if}
     <span class="text-xl">{currentMessage}</span>
   </div>
 
