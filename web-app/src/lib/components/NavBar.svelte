@@ -7,8 +7,11 @@
     class="w-full max-w-lg p-2 flex justify-center glass-effect rounded-full text-md md:text-lg"
   >
     <span
-      class="rounded-full border-none h-6 p-2 flex items-center"
-      class:active={$currentSlide === "About"}
+      class={`rounded-full border-none h-6 p-2 flex items-center ${
+        $currentSlide === "About"
+          ? "text-primary-foreground"
+          : "text-primary-foreground/50"
+      }`}
       on:click={() => setCurrentSlide("About")}
       role="button"
       tabindex="0"
@@ -16,8 +19,11 @@
       About
     </span>
     <span
-      class="rounded-full border-none h-6 p-2 flex items-center"
-      class:active={$currentSlide === "Projects"}
+      class={`rounded-full border-none h-6 p-2 flex items-center ${
+        $currentSlide === "Projects"
+          ? "text-primary-foreground"
+          : "text-primary-foreground/50"
+      }`}
       on:click={() => setCurrentSlide("Projects")}
       role="button"
       tabindex="0"
@@ -25,8 +31,11 @@
       Projects
     </span>
     <span
-      class="rounded-full border-none h-6 p-2 flex items-center"
-      class:active={$currentSlide === "Contact"}
+      class={`rounded-full border-none h-6 p-2 flex items-center ${
+        $currentSlide === "Contact"
+          ? "text-primary-foreground"
+          : "text-primary-foreground/50"
+      }`}
       on:click={() => setCurrentSlide("Contact")}
       role="button"
       tabindex="0"
@@ -35,9 +44,3 @@
     </span>
   </div>
 </nav>
-
-<style lang="css">
-  .active {
-    @apply text-primary-foreground/50;
-  }
-</style>
