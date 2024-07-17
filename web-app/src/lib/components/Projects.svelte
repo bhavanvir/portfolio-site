@@ -31,6 +31,15 @@
         "A microservice based stock trading platform that allows users to buy and sell stocks in real-time by setting either market or limit orders, as well as manage their portfolio. A matching engine using a Pro-Rata algorithm is used to match buy and sell orders, and a RESTful API is used to communicate with the front-end, using minted session tokens for authentication.",
       tag: "Completed",
     },
+    {
+      id: 4,
+      title: "OpenMarket",
+      date: "May 18, 2024 — June 2, 2024",
+      github: "https://github.com/bhavanvir/openmarket",
+      description:
+        "An AWS-deployable wrapper for the GraphQL Facebook Marketplace API. Using AWS Lambda, and API Gateway as the serverless backend and BrightData as a residential proxy, the API provides a RESTful interface for scraping Facebook Marketplace listings, and a GraphQL interface for querying the data.",
+      tag: "Completed",
+    },
   ];
 </script>
 
