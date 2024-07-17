@@ -81,10 +81,6 @@
     font-family: "Shippori Mincho", serif;
   }
 
-  .font-shippori-antique {
-    font-family: "Shippori Antique", sans-serif;
-  }
-
   .bg-gradient {
     /* Gradient from https://cssgradient.io/gradient-backgrounds/ */
     background: #41295a; /* Fallback for old browsers */
