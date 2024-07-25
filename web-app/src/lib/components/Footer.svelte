@@ -1,14 +1,31 @@
 <script lang="ts">
   import { currentSlide, setCurrentSlide } from "$lib/store.js";
   import { ChevronLeft, ChevronRight } from "svelte-lucide";
+  import { onMount } from "svelte";
 
   let slides = ["About", "Projects", "Contact"];
+
   function cycleSlides(direction: number) {
     let currentSlideIndex = slides.indexOf($currentSlide);
     let nextSlideIndex =
       (currentSlideIndex + direction + slides.length) % slides.length;
     setCurrentSlide(slides[nextSlideIndex]);
   }
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === "ArrowLeft") {
+      cycleSlides(-1);
+    } else if (event.key === "ArrowRight") {
+      cycleSlides(1);
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener("keydown", handleKeydown);
+    return () => {
+      window.removeEventListener("keydown", handleKeydown);
+    };
+  });
 </script>
 
 <nav class="flex items-center justify-center py-4 sticky bottom-0">
