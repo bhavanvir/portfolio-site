@@ -1,5 +1,5 @@
 <script>
-  import { ArrowLeft } from "svelte-lucide";
+  import { Home } from "svelte-lucide";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
 </script>
@@ -18,9 +18,8 @@
           role="button"
           tabindex="0"
         >
-          <ArrowLeft class="mr-2" />
-          Go Back Home</span
-        >
+          <Home />
+        </span>
       </div>
     </div>
   </div>
