@@ -13,7 +13,7 @@ export function BlogPosts({ firstN }: { firstN?: number }) {
   const allBlogs = getBlogPosts();
 
   return (
-    <div>
+    <div className="grid gap-6">
       {allBlogs
         .sort((a, b) => {
           if (
@@ -25,11 +25,7 @@ export function BlogPosts({ firstN }: { firstN?: number }) {
         })
         .slice(0, firstN ?? -1)
         .map((post) => (
-          <Link
-            key={post.slug}
-            className="flex flex-col space-y-1 mb-4"
-            href={`/blog/${post.slug}`}
-          >
+          <Link key={post.slug} href={`/blog/${post.slug}`}>
             <Card className="show-sm hover:bg-accent hover:text-accent-foreground">
               <CardHeader className="text-neutral-900 dark:text-neutral-100 tracking-tight">
                 <CardTitle>{post.metadata.title}</CardTitle>
