@@ -1,0 +1,276 @@
+---
+title: "Web Testing with Selenium"
+publishedAt: "2024-02-09"
+summary: "A comprehensive guide to understanding and implementing web UI testing using Selenium, covering DOM manipulation, element selection, and practical Python examples."
+---
+
+During the lifecycle of any serious software project, there comes a time when
+you want to ensure whether the product you've been so diligently working on
+actually works as expected or not, and how said product behaves when facing an
+edge case it's never experienced. To do so, we can employ a variety of different
+testing methodologies, each suited for a certain product or application.
+
+For front-facing user applications, such as ZooDB that utilize the Django Python
+framework, unit testing is necessary, but not entirely sufficient on its own, as
+the backend application code is rigorously tested, but the same TLC is not
+given to the frontend. To address that, we can employ numerous web testing
+libraries that allow us to poke at the user interface. One in particular that
+we'll be talking about is... [Selenium](https://www.selenium.dev/)!
+
+## Selenium? Like the element?
+
+Close! But not quite. As stated [directly on their website](https://www.selenium.dev/documentation/#:~:text=Selenium%20is%20an%20umbrella%20project,the%20automation%20of%20web%20browsers.), Selenium is:
+
+> "... an umbrella project for a range of tools and libraries that enable and
+> support the automation of web browsers"
+
+And at its core it's exactly that, a tool, or range of tools per se, that
+allows us to directly interact with the front-matter elements of a website. You
+may be thinking to yourself "ok, cool, but like... how does it allow us to do
+that?" and that is a great thought to have, especially this early on. However,
+I can't quite tell you how this all works without mentioning the Document
+Object Model or DOM as you have probably heard, so... let's have a quick little
+aside. I promise I won't ramble.
+
+## What is the DOM?
+
+Simply put, the DOM is a programming interface for web documents. It represents
+the page so that programs can change the document structure, style, and
+content, and it does so by representing the document as nodes and objects; that
+way, programming languages can interact with the page.
+
+A web page is a document that can be either displayed in the browser window or
+as the HTML source. In either case, it is the same document, but the DOM
+representation allows it to be manipulated, through scripting languages such as
+JavaScript.
+
+Consider the following HTML file:
+
+```html
+<!doctype html>
+<meta charset="UTF-8" />
+<html>
+  <head>
+    <title>ARCsoft</title>
+  </head>
+  <body>
+    <article>
+      <p>"ARC" stands for Advanced Research Computing...</p>
+      <p>"soft" stands for software...</p>
+    </article>
+  </body>
+</html>
+```
+
+The above HTML file is all fine and dandy to us regular folk, but the DOM is
+built differently and actually has its own logical representation of the same
+tree-like branching structure, which is shown below:
+
+```text
+html > head > title > body > article > p
+```
+
+As you can see, this is still pretty legible and actually makes intuitive sense
+the more you look at it. Fundamentally, all the parser is doing is a simplified
+level-order traversal of the document, where instead of going both top-to-bottom
+and left-to-right as in a traditional [level-order tree traversal](https://www.digitalocean.com/community/tutorials/level-order-traversal-in-a-binary-tree),
+we're strictly going from parent node to child node, so top-to-bottom; now, this
+is a gross generalization of how the DOM is actually functioning, but for
+illustrative purposes, this is sufficient.
+
+The cool part comes with using a language such as JavaScript to directly
+interact with the DOM. For example, using the same HTML file outlined above, we
+can get all the `<p>`, or paragraph, tags by using the built-in
+`querySelectorAll()` method as such:
+
+```javascript
+const pTags = document.querySelectorAll("p");
+```
+
+With this, we can access certain properties of a specific `<p>` tag by using
+array indexing and built-in class methods. For example, we can get the text of
+the first `<p>` tag by doing the following:
+
+```javascript
+const firstPTag = pTags[0]; // To get the second <p> tag, simply pass in '1'
+instead of '0'
+const firstPTagText = firstPTag.innerHTML;
+```
+
+Now let's get back to how Selenium ties in with this entire fiasco.
+
+## Manipulating the DOM with Selenium
+
+With Selenium, we have access to _three_ components of the DOM, namely the:
+
+1. Document,
+2. Window, and
+3. Element
+
+But for all intents and purposes, we'll stick to talking about the **element**
+and **document** components in this blog post, as you'll be mainly testing
+against their state; however, there will be cases where you'll have to chain
+the window component together with the document to retrieve element information...
+yucky! This is especially the case when having to scroll to certain positions
+of the website to get an element, but thankfully, this can be mitigated by using
+static HTML scraping tools like [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#)
+for Python, in addition to Selenium, though that's a topic for another blog
+post. Hopefully, you won't have to do much of that anytime soon!
+
+Let's get back to how we manipulate the DOM with Selenium. Selenium uses what
+they call the "WebDriver," which aptly does what it sounds like: drives a web
+browser. It drives Chrome, Firefox, Edge, you name it, like a user does,
+allowing for total browser automation.
+
+Selenium testing follows a predictable pattern, in that we follow a certain
+execution order to achieve our end goal of retrieving or manipulating some
+property of an element. We can break it down into these steps:
+
+1. Initialize the browser web driver.
+2. Pass a URL as a parameter to the web driver.
+3. Find an element using the web driver.
+4. Take action on the element by calling built-in functions.
+5. End the web driver session by calling either `quit()` or `close()`.
+
+`close()` closes only the current window on which Selenium is running.
+The web driver session, however, remains active. On the other hand, the
+`quit()` method closes all browser windows and ends the web driver session.
+
+**Note**: depending on the complexity of your test case, you may choose to employ
+waiting strategies, browser caching, credential authentication, or something
+else entirely.
+
+## Programatically interacting with the DOM
+
+Using Python, the steps outlined above look more like the following:
+
+1. Initializing the web driver with Chrome:
+
+```python
+driver = webdriver.Chrome() # This assumes that a valid webdriver is installed
+```
+
+2. Retrieving a particular URL, in this case, the [ARCsoft](https://arcsoft.uvic.ca/)
+   website:
+
+```python
+driver.get("https://arcsoft.uvic.ca/")
+```
+
+3. Finding an element on the site, in this case, the header text, using the `<h1>`
+   tag as the selector:
+
+```python
+header = driver.find_element(By.TAG_NAME, "h1")
+```
+
+4. Taking action on the header by printing out its inner HTML text:
+
+```python
+text = head.text
+print(text) # Output is: ARC Software Development Team
+```
+
+5. Ending the web driver session by quitting:
+
+```python
+driver.quit()
+```
+
+Although this example is basic, it paints an example of how this could be scaled
+up to accommodate a website with vastly more complexity, such as ZooDB. Remember
+that section explaining how the DOM parses an HTML? Well, we can utilize that
+syntax to our advantage by retrieving a certain element. For example, the
+following JavaScript code, more or less, is used within ZooDB to find a particular
+`<i>`, or italicized, tag:
+
+```javascript
+let currentNumber = document.querySelector("#table-container > i");
+```
+
+**Note**: the usage of the `>` operator, which indicates to the DOM parser to
+start at the element with an id of `table-container`, treat it as the parent
+element, and find the `<i>` tag, which is represented as the only child, or
+relativistically speaking, is the first element from the top of the starting
+position in the `table-container`.
+
+While this approach is valid in JavaScript, another approach is to use something
+called the [XPath, or XML Path](https://www.guru99.com/xpath-selenium.html),
+which is language-agnostic--assuming that Selenium supports it. It encompasses
+the same sort of logic, but in a slightly different syntax. For example, instead of
+using `#table-container > i`, we would instead use the following:
+
+```javascript
+let currentNumber = document.querySelector(
+  "/html/body/div[1]/div/div[1]/div[8]/div[1]/i",
+);
+```
+
+I won't get into the nitty-gritty of the XPath structure, but it is something
+to be cognizant of, and is another weapon in your arsenal of finding DOM
+elements.
+
+## Finding an element
+
+You now may be wondering: "Ok, again, cool, but how do I find an element?" Well,
+the easiest way to find the path to a particular element is to use the "Inspect"
+feature present in almost every respectable browser. You can bring up the
+dialogue by simply right-clicking on a page source and selecting the "Inspect"
+option.
+
+Now, there is a lot going on when the dialogue first pops up, but don't worry
+about 90% of the stuff in there for now, just click on the "Elements" tab.
+There you'll be able to see the entire page source as is rendered on your
+browser. Hovering over a line in the HTML source will highlight that particular
+view on the website you're visiting, and you can also select the cursor icon to
+click on an element in the rendered HTML and have it highlighted in the HTML
+source, pretty cool, right? From there, once you find the element you're
+interested in, right-click on the line in the HTML source that contains that
+element.
+
+A new dialogue will appear, again ignore 90% for now, and click on the "Copy"
+option, you now have several options appear:
+
+1. Copy element
+2. Copy selector
+3. Copy JS path
+4. Copy styles
+5. Copy XPath
+6. Copy full XPath
+
+**Note**: not all web browswers will give you the same options. For example,
+Chrome and Firefox will show you all these selectors, but Edge will only give
+you a subset. As for Safari--who uses Safari?
+
+Most of these you won't need to use, but the ones of interest are the `Copy JS
+path` and the two options containing the `XPath`. The `Copy JS path` option
+refers to the example shown earlier of how the DOM parses your HTML, the `Copy
+XPath` refers to the relative location of the element, whereas `Copy full XPath`
+refers to the absolute path starting from the body of the HTML source. For the
+most part, you want to use the `Copy styles` selector as little as possible, as
+any change in the styling of that element will cause your identifier to no
+longer be relevant and will cause Selenium to complain.
+
+Difference between XPaths referencing the same element, in this case, the first
+`<p>` tag on the [ARCsoft](https://arcsoft.uvic.ca/) website, under the "Recent
+logs" header:
+
+- XPath: `//*[@id="logs"]/p[1]`
+- Full XPath: `/html/body/div[2]/section/main/div/div[2]/p[1]`
+
+## Final remarks
+
+Although this was quite the brief introduction, we managed to cover the
+necessities, namely: what Selenium is, what the DOM is and how it works, as
+well as how we can manipulate the DOM, by finding elements using Selenium and
+Python. I hope this was enough for you to get started... happy testing!
+
+## References
+
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)
+- [Selenium Documentation](https://www.selenium.dev/documentation/)
+- [Guru99 Understanding the DOM](https://www.guru99.com/understanding-dom-fool-guide.html)
+- [BrowserStack Selenium Guide](<https://www.browserstack.com/guide/close-browser-in-selenium#:~:text=close()%20closes%20only%20the,and%20ends%20the%20WebDriver%20session.>)
+- [DigitalOcean Level-Order-Traversal](https://www.digitalocean.com/community/tutorials/level-order-traversal-in-a-binary-tree)
+- [Guru99 Using XPath in Selenium](https://www.guru99.com/xpath-selenium.html)
+- [BeautifulSoup4 Docs](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#)

@@ -1,0 +1,260 @@
+---
+title: "Comparing the Use of Our Web Development Tools to More Mainstream Ones"
+publishedAt: "2024-06-06"
+summary: "A reflection on the differences between the tools we use at ARCsoft and the more mainstream ones, based on a passion project experience."
+---
+
+Recently, [Karan](../../team/karan-gosal/) and I had the opportunity to work
+on a passion project, not related to the work we do with ARCsoft. Doing so
+gave us the chance to use some of the more mainstream web development tools
+that we wouldn't typically use in our day-to-day work. This experience was
+both enriching and fulfilling, so I wanted to share some of the key
+differences we noticed between the tools we use at ARCsoft and the more
+mainstream ones used in the industry. Let's dive in!
+
+## ARCsoft technology stack
+
+At ARCsoft, we primarily use the following technologies:
+
+- **[Django](https://www.djangoproject.com/)** for both our backend and frontend,
+- **[Bootstrap](https://getbootstrap.com/)** for our frontend styling, and
+- **[PostgreSQL](https://www.postgresql.org/)** for our database
+
+### Django
+
+Django is a high-level Python web framework that encourages rapid development
+and clean, pragmatic design. It is known as a "batteries-included" framework,
+meaning it comes with many built-in features that make it easy to get started.
+We chose Django specifically because of its long-standing reliability and
+extensive use in the industry.
+
+### Bootstrap
+
+Bootstrap is a free and open-source CSS framework aimed at responsive,
+mobile-first front-end web development. It contains CSS- and JavaScript-based
+design templates for typography, forms, buttons, navigation, and other
+interface components. Bootstrap was chosen due to its long history of use and
+its effectiveness in quickly creating responsive designs.
+
+### PostgreSQL
+
+PostgreSQL is a powerful, open-source object-relational database system known
+for its reliability, robustness, and performance. It is widely used in the
+industry and is known for its support of advanced features such as full-text
+search, JSONB data type, and custom extensions.
+
+## Passion project technology stack
+
+For our passion project, we decided to use the following technologies:
+
+- **[Next.js](https://nextjs.org/) with [TypeScript](https://www.typescriptlang.org/)**
+  for the frontend and backend,
+- **[TailwindCSS](https://tailwindcss.com/)** for styling,
+- **[shadcn/ui](https://ui.shadcn.com/)** for UI components,
+- **[Supabase](https://supabase.com/)** for database management, including authentication, and
+- **[Vercel](https://vercel.com/)** for deployment
+
+These tools are mainstream in the web development industry and are widely used
+by developers around the world, from startups to large enterprises.
+
+### Next.js
+
+Next.js is a React framework that enables functionality such as server-side
+rendering (SSR) and generating static websites. It is a popular choice for
+building modern web applications and comes with many built-in features that
+make development easier, such as:
+
+- Support for both server- and client-side rendering,
+- Dynamic HTML streaming,
+- Built-in optimizations for production builds, and
+- API routes for serverless functions
+
+### TypeScript
+
+TypeScript is a superset of JavaScript that adds static typing to the language,
+making it easier to catch errors and write more maintainable code as your
+project grows. It is widely used in the industry and is known for its ability
+to scale with large codebases.
+
+### TailwindCSS
+
+TailwindCSS is a utility-first CSS framework that allows you to build custom
+designs without writing any CSS. It is highly customizable and easy to use,
+making it a popular choice for many developers. TailwindCSS is known for its
+flexibility and speed in creating responsive designs.
+
+### shadcn/ui
+
+shadcn/ui is a library of UI components built on top of Radix UI, which
+provides a set of primitives for building design systems, and styled with
+TailwindCSS for easy customization. shadcn/ui offers a wide range of
+components, including buttons, modals, and forms, that can be easily
+integrated into your project.
+
+### Supabase
+
+Supabase is an open-source alternative to Firebase that offers a suite of
+tools for building web applications, including:
+
+- Real-time database,
+- Authentication, and
+- File storage
+
+Supabase is known for its ease of use and flexibility, making it a popular
+choice for developers who want to quickly build and deploy applications
+without complex infrastructure. Its extensive and user-friendly documentation
+makes it easy to get started, and the online dashboard provides an intuitive
+interface for managing data.
+
+In addition, Supabase supports `pgvector`, a PostgreSQL extension that enables
+vector similarity search. This feature is particularly useful for building
+recommendation systems and other machine learning applications, making
+Supabase a powerful tool for developers working on data-intensive projects.
+
+### Vercel
+
+Vercel is a cloud platform for static sites and serverless functions, enabling
+developers to deploy their applications effortlessly. It integrates seamlessly
+with Git repositories, automatically deploying changes whenever you push to
+your branch. This continuous deployment feature allows for rapid iteration
+and immediate visibility of changes.
+
+Vercel also offers features like custom domains, SSL certificates, and
+environment variables, simplifying the process of configuring applications for
+production use. The platform is user-friendly and provides detailed analytics
+on deployments, allowing developers to track their application's performance
+and usage. Additionally, Vercel offers an easy alternative to AWS's Route 53
+for DNS management, further streamlining the deployment process.
+
+## Key differences
+
+### Development speed
+
+One of the key differences we noticed between the tools we use at ARCsoft and
+the mainstream tools we used for our passion project was the development
+speed. The mainstream tools, such as Next.js with TypeScript and TailwindCSS,
+allowed us to build and iterate on our project much faster than our usual
+tools. The built-in features of Next.js, such as server-side rendering and hot
+reloading, made development more efficient, and the utility-first approach of
+TailwindCSS enabled us to create custom designs quickly without writing any
+CSS.
+
+### Maintenance
+
+Another difference we noticed was the ease of maintenance of the mainstream
+tools compared to our usual tools. TypeScript's static typing made it easier
+to catch errors and write more maintainable code, while the extensive
+documentation of Supabase and Vercel provided clear guidance on how to use
+their features. The online dashboard of Supabase and the detailed analytics of
+Vercel made it easy to manage and monitor our application, simplifying the
+maintenance process.
+
+### Flexibility
+
+While our usual tools at ARCsoft are reliable and widely used in the industry,
+the mainstream tools we used for our passion project offered greater
+flexibility and customization options. Next.js with TypeScript allowed us to
+build modern web applications with ease, and TailwindCSS's utility-first
+approach enabled us to create custom designs without writing any CSS. The
+extensive library of UI components in shadcn/ui and the support for real-time
+data, and `pgvector` in Supabase provided additional flexibility for building
+data-intensive applications.
+
+### Deployment
+
+The deployment process was another area where we noticed a significant
+difference between the tools we use at ARCsoft and the mainstream tools we
+used for our passion project. Vercel's seamless integration with Git
+repositories and continuous deployment feature made it easy to deploy changes
+and track their performance. The platform's user-friendly interface and
+detailed analytics provided visibility into our application's usage and
+allowed us to configure it for production use effortlessly.
+
+### Ecosystem and community
+
+The mainstream tools often have larger ecosystems and more active communities
+compared to some of the tools we use at ARCsoft. For example, the React
+ecosystem that Next.js is part of offers a vast array of libraries, plugins,
+and community support, making it easier to find solutions and resources.
+Similarly, TailwindCSS has a strong community with numerous resources, themes,
+and plugins available, which can significantly speed up development.
+
+### Modern practices and features
+
+The mainstream tools tend to incorporate the latest web development practices
+and features. For example, Next.js supports modern JavaScript features and
+techniques such as server-side rendering (SSR) and static site generation
+(SSG), which can improve performance and SEO. TypeScript brings modern
+development practices with its static typing and advanced IDE support,
+enhancing code quality and maintainability.
+
+## Where Django Excels
+
+### Integrated approach
+
+Django's integrated approach, where it provides a consistent set of tools and
+conventions, is a major strength. This "batteries-included" philosophy ensures
+that developers have everything they need to build robust applications without
+needing to integrate multiple external libraries. This can reduce the overhead
+of making technology choices and ensure a cohesive development experience.
+
+### Admin interface
+
+One of Django's standout features is its built-in admin interface. This
+automatically generated interface allows for quick and easy management of
+application data without the need to build custom admin pages. It's a
+significant time-saver for internal tools and content management.
+
+### Security
+
+Django places a strong emphasis on security, providing built-in protections
+against common web vulnerabilities such as SQL injection, cross-site scripting
+(XSS), and cross-site request forgery (CSRF). This focus on security makes it
+a reliable choice for applications where data security is a priority.
+
+### ORM and database flexibility
+
+Django's Object-Relational Mapping (ORM) system is robust and allows for
+complex queries and database operations using Python code. This makes it
+easier to work with databases and can speed up development. Additionally,
+Django's support for multiple database backends and its ability to switch
+databases with minimal changes is a valuable feature.
+
+### Scalability
+
+While Django might not have the same modern tooling as some newer frameworks,
+it has proven scalability. Many large-scale applications use Django
+successfully, benefiting from its mature ecosystem, extensive documentation,
+and a wide array of third-party packages.
+
+## Conclusion
+
+Our experience working on a passion project with mainstream web development
+tools was enlightening and provided valuable insights into the differences
+between the tools we use at ARCsoft and the more mainstream ones used in the
+industry. While our usual tools are reliable and widely used, the mainstream
+tools offered greater development speed, flexibility, and modern practices.
+
+However, Django's integrated approach, built-in admin interface, strong focus
+on security, and robust ORM system make it a powerful choice for many
+applications, particularly those requiring complex database operations and
+secure handling of data. By understanding the strengths and weaknesses of
+different tools, we can make informed decisions on the best technology stack
+for each project.
+
+Overall, this experience has broadened our perspective and provided us with
+new tools and techniques that we can apply to our work at ARCsoft. We look
+forward to continuing to explore and learn from the ever-evolving world of web
+development!
+
+## References
+
+- [Django](https://www.djangoproject.com/)
+- [Bootstrap](https://getbootstrap.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Supabase](https://supabase.com/)
+- [Vercel](https://vercel.com/)
