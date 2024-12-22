@@ -24,13 +24,14 @@ export const metadata: Metadata = {
     default: "Bhavanvir Rai - Software Engineer",
     template: "%s | Bhavanvir Rai - Software Engineer",
   },
-  description: "This is my portfolio.",
+  description:
+    "Bhavanvir Rai's personal website. Functions as a living portfolio.",
   openGraph: {
-    title: "My Portfolio",
+    title: "Bhavanvir's Portfolio",
     description:
       "Bhavanvir Rai's personal website. Functions as a living portfolio.",
     url: baseUrl,
-    siteName: "My Portfolio",
+    siteName: "Bhavanvir's Portfolio",
     locale: "en_CA",
     type: "website",
   },
