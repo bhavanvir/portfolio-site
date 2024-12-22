@@ -7,7 +7,12 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { GitHubLogoIcon, CalendarIcon } from "@radix-ui/react-icons";
+import {
+  GitHubLogoIcon,
+  CalendarIcon,
+  ExternalLinkIcon,
+} from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
@@ -51,7 +56,7 @@ export default function Projects() {
       github: "https://github.com/bhavanvir/openmarket",
       description:
         "An AWS-deployable wrapper for the GraphQL Facebook Marketplace API. Using AWS Lambda, and API Gateway as the serverless backend and BrightData as a residential proxy, the API provides a RESTful interface for scraping Facebook Marketplace listings, and a GraphQL interface for querying the data.",
-      tags: ["Go", "AWS"],
+      tags: ["Go", "AWS", "BrightData"],
     },
   ];
 
@@ -63,7 +68,7 @@ export default function Projects() {
       liveUrl: "https://www.singhsabha.net/",
       description:
         "A dynamic web application serving as a virtual hub for the Sikh community. Members can view upcoming events at the Gurdwara, book their own events, and explore educational resources about Sikhism, creating a modern connection to traditional practices.",
-      tags: ["Next.js", "Supabase", "Resend"],
+      tags: ["Next.js", "Supabase", "Vercel", "Resend"],
     },
     {
       id: 2,
@@ -71,7 +76,7 @@ export default function Projects() {
       liveUrl: "https://www.skylarkmaintenance.ca/",
       description:
         "A sleek and professional web application for Skylark Maintenance, a local janitorial business. The platform showcases their expertise, highlights their experience, and attracts new clients through a user-friendly and visually appealing interface.",
-      tags: ["Next.js", "Resend"],
+      tags: ["Next.js", "Vercel", "Resend"],
     },
   ];
 
@@ -83,9 +88,19 @@ export default function Projects() {
           <Card key={project.id} className="flex flex-col">
             <CardHeader>
               <CardTitle>{project.title}</CardTitle>
-              <CardDescription className="flex items-center">
-                <CalendarIcon className="h-4 w-4 mr-2" />
-                {project.date}
+              <CardDescription className="grid grid-rows-2 gap-2">
+                <div className="flex items-center">
+                  <CalendarIcon className="h-4 w-4 mr-2" />
+                  {project.date}
+                </div>
+
+                <div className="flex flex-wrap gap-2 w-full">
+                  {project.tags.map((tag, index) => (
+                    <Badge key={index} variant="secondary">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -94,23 +109,20 @@ export default function Projects() {
                 className="text-sm text-muted-foreground"
               />
             </CardContent>
-            <CardFooter className="mt-auto flex flex-wrap justify-between items-center">
-              <div className="flex flex-wrap gap-2">
-                <Link
-                  className="transition-colors duration-200 text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-100"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  href={project.github}
-                >
-                  <GitHubLogoIcon className="h-5 w-5" />
-                </Link>
-              </div>
-              <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
-                {project.tags.map((tag, index) => (
-                  <Badge key={index} variant="secondary">
-                    {tag}
-                  </Badge>
-                ))}
+            <CardFooter className="mt-auto flex flex-col gap-4">
+              <div className="flex flex-wrap gap-2 w-full">
+                {project.github && (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <GitHubLogoIcon />
+                      Source Code
+                    </Link>
+                  </Button>
+                )}
               </div>
             </CardFooter>
           </Card>
@@ -122,48 +134,53 @@ export default function Projects() {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {freelanceProjects.map((project) => (
-          <Link
-            href={project.liveUrl}
-            key={project.id}
-            target="_blank"
-            className="group block h-full"
-          >
-            <Card className="flex flex-col h-full hover:bg-accent hover:text-accent-foreground transition-colors duration-200">
-              <CardHeader>
-                <CardTitle className="flex justify-between items-center">
-                  {project.title}
-                  <div className="h-3 w-3 rounded-full bg-red-500 animate-pulse" />
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <p
-                  dangerouslySetInnerHTML={{ __html: project.description }}
-                  className="text-sm text-muted-foreground"
-                />
-              </CardContent>
-              <CardFooter className="mt-auto flex flex-wrap justify-between items-center">
+          <Card key={project.id} className="flex flex-col h-full">
+            <CardHeader>
+              <CardTitle>{project.title}</CardTitle>
+
+              <CardDescription className="flex flex-wrap gap-2 w-full">
+                {project.tags.map((tag, index) => (
+                  <Badge key={index} variant="secondary">
+                    {tag}
+                  </Badge>
+                ))}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <p
+                dangerouslySetInnerHTML={{ __html: project.description }}
+                className="text-sm text-muted-foreground"
+              />
+            </CardContent>
+            <CardFooter className="mt-auto flex flex-col gap-4">
+              <div className="flex flex-wrap gap-2 w-full">
                 {project.github && (
-                  <div className="flex flex-wrap gap-2">
+                  <Button variant="outline" size="sm" asChild>
                     <Link
-                      className="transition-colors duration-200 text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-100"
-                      rel="noopener noreferrer"
-                      target="_blank"
                       href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <GitHubLogoIcon className="h-5 w-5" />
+                      <GitHubLogoIcon />
+                      Source Code
                     </Link>
-                  </div>
+                  </Button>
                 )}
-                <div className="flex flex-wrap gap-2 mt-2 sm:mt-0">
-                  {project.tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardFooter>
-            </Card>
-          </Link>
+                {project.liveUrl && (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLinkIcon />
+                      Live Demo
+                    </Link>
+                  </Button>
+                )}
+              </div>
+            </CardFooter>
+          </Card>
         ))}
       </div>
     </section>
