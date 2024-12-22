@@ -58,19 +58,19 @@ export default function Projects() {
   const freelanceProjects = [
     {
       id: 1,
-      title: "Gurdwara Singh Sabha",
-      date: "October 12, 2024 — Present",
+      title: "Gurdwara Singh Sabha of Victoria",
       github: "https://github.com/bhavanvir/singhsabha",
       liveUrl: "https://www.singhsabha.net/",
-      description: "Blah blah blah",
+      description:
+        "A dynamic web application serving as a virtual hub for the Sikh community. Members can view upcoming events at the Gurdwara, book their own events, and explore educational resources about Sikhism, creating a modern connection to traditional practices.",
       tags: ["Next.js", "Supabase", "Resend"],
     },
     {
       id: 2,
       title: "Skylark Maintenance",
-      date: "August 12, 2024 — Present",
       liveUrl: "https://www.skylarkmaintenance.ca/",
-      description: "Blah blah blah",
+      description:
+        "A sleek and professional web application for Skylark Maintenance, a local janitorial business. The platform showcases their expertise, highlights their experience, and attracts new clients through a user-friendly and visually appealing interface.",
       tags: ["Next.js", "Resend"],
     },
   ];
@@ -120,25 +120,22 @@ export default function Projects() {
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">
         Freelance
       </h1>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {freelanceProjects.map((project) => (
-          <Link href={project.liveUrl} key={project.id} target="_blank">
-            <Card
-              key={project.id}
-              className="flex flex-col show-sm hover:bg-accent hover:text-accent-foreground"
-            >
+          <Link
+            href={project.liveUrl}
+            key={project.id}
+            target="_blank"
+            className="group block h-full"
+          >
+            <Card className="flex flex-col h-full hover:bg-accent hover:text-accent-foreground transition-colors duration-200">
               <CardHeader>
                 <CardTitle className="flex justify-between items-center">
                   {project.title}
                   <div className="h-3 w-3 rounded-full bg-red-500 animate-pulse" />
                 </CardTitle>
-                <CardDescription className="flex items-center">
-                  <CalendarIcon className="h-4 w-4 mr-2" />
-                  {project.date}
-                </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-grow">
                 <p
                   dangerouslySetInnerHTML={{ __html: project.description }}
                   className="text-sm text-muted-foreground"
