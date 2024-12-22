@@ -1,15 +1,29 @@
 import Link from "next/link";
 import { BlogPosts } from "@/components/posts";
-import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
+import {
+  EnvelopeClosedIcon,
+  GitHubLogoIcon,
+  LinkedInLogoIcon,
+} from "@radix-ui/react-icons";
 
 export default function Home() {
   return (
     <section>
-      <h1 className="text-2xl font-semibold tracking-tighter mb-4">
-        Hey, I&apos;m Bhavanvir 👋
+      <h1 className="text-2xl font-semibold tracking-tighter mb-2">
+        Hey, I&apos;m Bhavanvir 👋🏽
       </h1>
-
       <div className="flex items-center space-x-4 mb-8">
+        <Link
+          className="transition-colors duration-200 text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-100"
+          rel="noopener noreferrer"
+          target="_blank"
+          href="mailto:me@bhavanvir.ca"
+        >
+          <EnvelopeClosedIcon className="h-5 w-5" />
+        </Link>
+
+        <div className="h-5 border-l-2"></div>
+
         <Link
           className="transition-colors duration-200 text-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-100"
           rel="noopener noreferrer"
@@ -46,20 +60,19 @@ export default function Home() {
       <p className="leading-7 [&:not(:first-child)]:mt-6">
         I&apos;m a <span className="underline">Full Stack Engineer</span> with a
         proven track record of enhancing application performance, optimizing
-        data processing, and developing scalable, efficient systems. I have
-        hands-on experience building robust solutions across the entire software
-        development lifecycle, with a particular focus on integrating artificial
-        intelligence to solve real-world problems. My passion lies in leveraging
-        innovative technologies to create impactful software development
-        projects that drive business success.
+        data processing, and developing scalable, efficient systems.
       </p>
       <p className="leading-7 [&:not(:first-child)]:mt-6">
-        With a background in Software Engineering and a specialization in
-        Artificial Intelligence and Data Mining, I bring a blend of technical
-        expertise and problem-solving ability to every project. Whether
-        optimizing back-end processes, improving front-end user experiences, or
-        integrating AI-driven capabilities, I am committed to delivering
-        high-quality, efficient, and scalable solutions.
+        I have hands-on experience building robust solutions across the entire
+        software development lifecycle, with a particular focus on integrating
+        artificial intelligence to solve real-world problems. My passion lies in
+        leveraging innovative technologies to create impactful software
+        development projects that drive business success.
+      </p>
+      <p className="leading-7 [&:not(:first-child)]:mt-6">
+        With an academic background in Software Engineering and a specialization
+        in Artificial Intelligence and Data Mining, I bring a blend of technical
+        expertise and problem-solving ability to every project.
       </p>
 
       <div className="my-8 w-full border-t-2" />
