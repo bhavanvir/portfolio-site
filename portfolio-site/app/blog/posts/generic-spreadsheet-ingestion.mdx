@@ -1,0 +1,200 @@
+---
+title: "Generic Spreadsheet Ingestion: A Deep Dive into Excel Data Management"
+publishedAt: "2024-05-27"
+summary: "Explore how to effectively handle Excel data in modern web applications, with a focus on creating reusable solutions for spreadsheet ingestion and database integration."
+---
+
+As many may have gathered from our previous blog posts, ZooDB is a project
+that:
+
+> "...presents decades of bone count data from zooarchaeological surveys at
+> various sites around British Columbia."
+>
+> -- [ZooDB project page](../../projects/zoodb)
+
+However, the format of this data might not be what you expect. In academia,
+it is quite common to collect trial data in Microsoft Excel files due to its
+simplicity and ease of use. Managing a full-fledged database can be a
+significant hassle and is understandably not a priority for most researchers,
+as nobody wants to be bogged down with mundane tasks.
+
+The challenge with Excel files is that programmatically handling them can be
+cumbersome. We prefer to perform CRUD operations (💩? Not quite, it stands for
+create, read, update, and delete) on a database instance to ensure data
+integrity, scalability, and accessiblity, rather than directly in an Excel file.
+So, how can this be achieved? Let's dive into it below!
+
+## Motivation
+
+As discussed in the introduction, Excel files are prevalent in our field of
+work. Therefore, the logic used to ingest files in ZooDB will not be the last
+time we encounter them. However, the current code for ZooDB's ingestion is not
+easily adaptable to new projects, as there are numerous precautions taken
+before modifying a database entry. Despite this, the core logic for Excel file
+ingestion will remain consistent across projects.
+
+To avoid duplicating large amounts of code across projects, we have focused on
+developing a flexible and generic solution. This led to the creation of our
+database-spreadsheet integration library, `dbssin`, which we'll refer to moving
+forward.
+
+The `dbssin` library aims to streamline the process of Excel file ingestion,
+providing a robust and reusable framework that can be easily integrated into
+various projects. By standardizing the ingestion logic and reducing the need
+for repetitive code, `dbssin` not only saves development time but also ensures
+consistency and reliability in handling Excel files across different
+applications. Our goal is to make `dbssin` a versatile tool that addresses the
+common challenges faced when working with Excel files, thereby enhancing
+productivity and maintaining high-quality data management standards.
+
+## Reading from Excel to a database
+
+I won't delve deeply into how to read Excel files with Python, as Priya covered
+this extensively in [her blog post](../2023-03-28-openpyxl-ingestion)
+about a year ago. However, one detail I can add is that there are many great
+alternatives to `OpenPyXL` depending on your use case. For instance, if your
+application deals with large amounts of data, consider using the
+[`python-calamine`](https://pandas.pydata.org/docs/dev/whatsnew/v2.2.0.html#calamine-engine-for-read-excel)
+library, which provides Python bindings for a Rust library used to read from
+large Excel files. It also integrates well with the well-established
+[`Pandas`](https://pandas.pydata.org/docs/user_guide/10min.html) library, in
+addition to `OpenPyXL`, which is fantastic!
+
+## Constraints with generic spreadsheets
+
+Much to my dismay, it's not feasible nor possible (🤖?) to have it so we ingest
+an Excel spreadsheet, create the correct model schema for Django, and then read
+all our data into the correct fields during run-time. So, instead, we opted
+to leave the model definitions to the user, and simply have it so we map fields
+in a model, to individual rows of a sheet in the Excel file. Not only is this
+more simplistic in an algorithmic sense, but it also gives the user the freedom
+to define their constraints, and have `dbssin` deal with the validation aspect.
+
+Along with this approach, we also expect that naming is _consistent_ and
+_respected_. Meaning, that if you have a sheet in your Excel file named
+`Contacts` we expect there to be a model in your `models.py` named `Contacts`
+as well, otherwise there is no real way of knowing where each data entry
+belongs.
+
+## How can you map a model field to a sheet in Excel?
+
+Quite simple actually! When you define a model in the `models.py` file like so:
+
+```python
+  class Contact(Model):
+      name = CharField(..., help_text='A', ...)
+      number = CharField(..., help_text='B', ...)
+      address = CharField(..., help_text='C', ...)
+```
+
+You can pass an optional parameter referred to as `help_text` that allows you
+to pass in any arbitrary string -- in our case, the corresponding row in an
+Excel sheet. Additionally, since we established that the name of the model
+corresponds to the name of a sheet in the Excel file, we now have the exact
+location of a row, and using OpenPyXL is quite trivial in its implementation.
+But, if you want to see how we did it, you can check out Priya's blog post
+linked above!
+
+`help_text` is a field that is used to provide a human-readable description of
+the field, and it is not used by Django for any internal operations. Therefore,
+it is a good _starting_ place to scaffold a solution for storing metadata that
+can be used by other parts of your application. Many other fields in Django can
+be used to store metadata, such as `verbose_name` or `default`, and you can read
+more about them and other such fields in the
+[official documentation](https://docs.djangoproject.com/en/5.0/ref/models/fields/).
+
+**Note**: `help_text` is used in the Django admin interface to provide a tooltip
+when hovering over a field, as well as in forms to provide a label for the field,
+so be mindful of its usage.
+
+Eventually, we plan to abandon using `help_text` in favour of a more robust
+solution, but for now, it serves its purpose well, allowing for us to rapidly
+prototype and test our ideas.
+
+## Creating a database record for a model using Django's ORM
+
+[Django's ORM](https://opensource.com/article/17/11/django-orm)
+(object-relational mapper) gives a lot of access to the inner workings of its
+primitives. For example, if you want to retrieve the name of all your models
+you can add the following lines of code to your `views.py`:
+
+```python
+  from django.apps import apps
+
+  MODELS = [
+      model.__name__
+      for model in apps.get_models()
+  ]
+```
+
+**Note**: this will _not_ just return the names of those models you defined
+in your `models.py`, but also all the dependent models that Django uses under
+the hood, such as for sessions, so further refinement, i.e. using `regex`, is
+required to obtain just the information you're interested in.
+
+To create an entry in the `Contacts` model with a set of data, you can
+do it in the following way:
+
+```python
+  from django.apps import apps
+
+  # Needs to be consistent with the model definition in models.py
+  row = {
+      "name": "Bhavy",
+      "number": "XXX-XXX-XXXX",
+      "address": "XXXX XXXXXXXX XXXXXX"
+  }
+
+  # Replace <your_app_label> and <your_model_name> with their respective values
+  Model = apps.get_model(app_label=<your_app_label>, <your_model_name>)
+
+  instance = Model(**row)
+  instance.save()
+```
+
+So, let's break this code snippet down:
+
+- `row` is a dictionary that contains all of the necessary data required by
+  our model, in this case, the `Contacts` model.
+- To get the instance of your chosen model, you need to pass in the name of
+  your Django app, i.e. `dbssin`, along with the name of your model, i.e.
+  `Contacts`, to the `get_model()` function of the `apps` module.
+- The `**` operator is used to unpack the dictionary `row` into keyword
+  arguments, which are then passed to the model's constructor, i.e. passing
+  `**row` to `Model` is equivalent to passing
+  `name="Bhavy", number="XXX-XXX-XXXX", address="XXXX XXXXXXXX XXXXXX"`.
+- `.save()` commits our newly formed entry to the database, and with either an
+  SQLite database viewer or access to the PostgreSQL instance, we can see
+  a new entry appearing in our database.
+
+This is a very simplified version of how to create an entry in a model using
+Django's ORM, and I would recommend reading the [official documentation](https://docs.djangoproject.com/en/5.0/ref/models/instances/)
+to gain a deeper understanding of how to interact with the ORM. It's a powerful
+tool that can be used to perform a wide range of operations on your database
+with ease, not limited to just creating entries, but any CRUD operation you
+can think of!
+
+## Conclusion
+
+In this blog post, we discussed the motivation behind creating a generic
+spreadsheet ingestion library, `dbssin`, and how it can be used to streamline
+the process of reading data from Excel files into a database. We also explored
+the constraints associated with handling generic spreadsheets and how we
+overcame them by mapping model fields to sheets in Excel. Finally, we provided
+a brief overview of how to create an entry in a model using Django's ORM. By
+leveraging the capabilities of `dbssin` and Django's ORM, you can simplify the
+ingestion process and ensure data integrity in your applications.
+
+I hope that this post has provided you with valuable insights into the
+challenges of working with Excel files and how `dbssin` can help simplify the
+ingestion process.
+
+## References
+
+- [ZooDB project page](../../projects/zoodb)
+- [OpenPyXL ingestion](../2023-03-28-openpyxl-ingestion)
+- [Calamine engine for reading Excel](https://pandas.pydata.org/docs/dev/whatsnew/v2.2.0.html#calamine-engine-for-read-excel)
+- [Pandas documentation](https://pandas.pydata.org/docs/user_guide/10min.html)
+- [Django model fields documentation](https://docs.djangoproject.com/en/5.0/ref/models/fields/)
+- [Django's ORM](https://opensource.com/article/17/11/django-orm)
+- [Django model instances documentation](https://docs.djangoproject.com/en/5.0/ref/models/instances/)

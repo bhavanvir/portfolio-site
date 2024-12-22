@@ -1,0 +1,244 @@
+---
+title: "Reducing Testing Times with Parallelization"
+publishedAt: "2024-03-15"
+summary: "An in-depth exploration of implementing test parallelization in Django applications, covering both local and CI environments, with practical solutions to common challenges."
+---
+
+As your test suite grows, so does the time it takes to run it. This can be a
+major bottleneck in your development process, especially if you're following a
+[TDD](https://circleci.com/blog/test-driven-development-tdd/) approach like we are.
+In this post, I'll give a brief overview of how parallelization can be used to
+reduce testing times, and how it can beimplemented in local and CI environments,
+as well as the many headache-inducing issues that can arise from it. Grab a bottle
+of Tylenol, and a glass of water, and let's dive in! 🤕
+
+## What is parallelization?
+
+Parallelization is the act of running multiple tasks simultaneously. In the
+context of testing, this means running multiple test files, or even individual
+tests, at the same time. This can significantly reduce the time it takes to run
+your test suite, especially if you have a large number of tests.
+
+Parallelization works by splitting your test suite into multiple parts, and
+running each part in a separate process. This can be done in a number of ways,
+such as running tests in separate threads, processes, or even on separate
+machines. The most common approach is to run tests in separate processes, as
+this is the easiest to set up and maintain, and is the approach I'll be
+focusing on in this post, but the principles are the same regardless of the
+approach you take.
+
+## Implementing parallelization in local environments
+
+Implementing parallelization in your local environment is relatively
+straightforward, and can be done with minimal changes to your existing test
+suite. The most common approach is to use a test runner that supports
+parallelization, such as `nose`, and configure it to run tests in parallel. This
+can be done by passing the `--processes` flag to nose, which tells it how many
+processes to spawn and use for testing. For example, to run tests in four processes,
+you would run the following in your command-line:
+
+```bash
+  nosetests <other commands> --processes=4
+```
+
+**Note**: the `nose` test runner by default runs tests in alphabetical order,
+which can cause issues if your tests are not independent of each other.
+Increasing the `--processes` flag increases the effective "batch size" of tests
+that are run together, meaning that, for example using four processes, the first four
+tests will be run in parallel, then the next four, and so on.
+
+You will most likely also find out very quickly that you need to add a process
+timeout, as running tests in parallel can cause some tests to hang, and never
+finish. Generally speaking, you want to set a timeout that is longer than the
+longest test in your suite. In our case, the process hanging led to the need
+of increasing the timeout, which by default is ten seconds -- this can be done
+by passing the `--process-timeout` flag to `nose`, which tells it how long to
+wait for a process to finish before killing it. For example, to set a timeout
+of two minutes, you would run:
+
+```bash
+  nosetests <other commands> --process-timeout=120
+```
+
+Putting it all together, you would run:
+
+```bash
+  nosetests <other commands> --processes=4 --process-timeout=120
+```
+
+But, be mindful, as the number of processes you use should not exceed the
+number of cores on your machine, as this can actually slow down your test
+suite, rather than speed it up: running too many processes can cause your
+machine to spend more time switching between processes, rather than actually
+running tests. A good rule of thumb is to use the number of cores on your
+machine, or one less, if you want to leave a core free for other tasks.
+
+If you're on a Unix-based system, you can use the `nproc` command to get the
+number of cores on your machine, and use that to set the number of processes to
+use. For example, to get the number of cores on your machine, you would run:
+
+```bash
+  nproc
+```
+
+Before you even decide to implement parallelization, think to yourself if
+you really need it. If your test suite is small, or runs quickly, then
+parallelization may not be necessary, and may even slow down your test suite.
+It's important to measure the time it takes to run your test suite before and
+after implementing parallelization, to ensure that it's actually making a
+difference.
+
+## Testing architecture... a preamble to our problems
+
+So, before I get into the nitty-gritty of the problems we faced, I want to
+give a brief overview of our local development test suite, and the components
+that make it up.
+
+Our test suite consists of the following components:
+
+- Linting (using pylint and shellcheck)
+- Unit tests (use `nose` and Django's [TestCase](https://docs.djangoproject.com/en/5.0/topics/testing/overview/#writing-tests))
+- User interface tests (using Selenium, `nose` and Django's [StaticLiveServerTestCase](https://docs.djangoproject.com/en/5.0/topics/testing/tools/#liveservertestcase))
+
+The bulk of the time spent during testing were the user interface tests
+(whoopsie, my bad!). Our user interface tests were written using Selenium,
+and were run using the Chrome browser. More specifically, Selenium was
+actually run in a Docker container using the `selenium/standalone-chrome`
+image. This was done on purpose, as it allowed us to run our tests in a
+consistent environment, and also lent itself to be run in a CI environment,
+which I'll talk about later.
+
+The `selenium/standalone-chrome` image uses the Selenium Grid architecture,
+which allows you to run tests on either the same machine, or a remote machine.
+This is done by running a Selenium server, which acts as a hub, and multiple
+Selenium nodes, which act as workers. The hub is responsible for routing test
+requests to the nodes, and the nodes are responsible for running the tests.
+This allows you to run tests in parallel, by running multiple nodes, and having
+the hub distribute the tests across the nodes.
+
+You can read more about it here on their [GitHub](https://github.com/SeleniumHQ/docker-selenium/blob/trunk/README.md),
+where they have a very detailed README.
+
+## Problems, problems, problems
+
+So, now that you have been given a _very_ brief overview of our test suite,
+the components that make it up, and what we were trying to achieve, let's get
+into the problems we faced.
+
+### Problem 1: Selenium overhead and Django integration
+
+Using Selenium Grid, it's actually quite trivial to increase the number of
+browser sessions or instances that can be run in parallel. This is done by
+adding either `SE_NODE_MAX_SESSIONS` or `SE_NODE_MAX_INSTANCES` to your
+`selenium/standalone-chrome` service, for example:
+
+```bash
+  docker run -d --net=host --name selenium-chrome \
+      -e SE_NODE_MAX_SESSIONS=4 \
+      selenium/standalone-chrome
+```
+
+**Note**: an important distinction to make here is between a **browser
+session** and a **browser instance**. Think of it as a hierarchy, where
+a session is a child of an instance, and an instance is a child of a browser.
+So to run multiple browsers, you run multiple instances, and to run multiple
+windows, you run multiple sessions.
+
+The problem we faced was that, even though we were running multiple Chrome
+sessions in parallel, we weren't seeing any significant reduction in test
+times. At most we're talking several seconds shaved off our user interface
+tests. This was quite puzzling, as we were expecting to see a significant
+reduction in test times, as we were running multiple tests in parallel. Upon
+first inspection of the Selenium Grid, which can be reached via `localhost:4444`,
+we saw that the tests were being distributed across the nodes, and were being
+run in parallel. So, what was the problem? 🤔
+
+It turns out that the problem was with how the browser drivers were being
+managed. For the first test file, so around eight test cases, the browser driver
+was being correctly distributed across the processes, and the tests were being
+run in parallel. However, for the subsequent test files, only a single driver
+was being used, and so the tests were being run sequentially. This was odd, as
+each test class had its own `setUpClass` and `tearDownClass` methods, which
+should have been creating and destroying a new browser driver for each test
+class, and for the first test file, it was doing just that.
+
+We tried the following in hopes of fixing the problem:
+
+- We tried using the `setUp` and `tearDown` methods, instead of the
+  `setUpClass` and `tearDownClass` methods, but this didn't fix the problem.
+- We tried using multiple browser drivers, by dynamically storing them in a
+  dictionary, and then using them in the test classes, but this didn't fix the
+  problem.
+- We tried using and setting `_multiprocess_can_split_` and `_multiprocess_shared_`
+  to `True` in the test classes, but this didn't fix the problem, though
+  `_multiprocess_can_split_` did have better results than `_multiprocess_shared_`,
+  by generating fewer errors.
+- We tried using multiple browser instances rather than multiple browser
+  sessions, but this also didn't fix the problem.
+
+**Note**: read more about `_multiprocess_can_split_` and `_multiprocess_shared_`
+[here](https://nose.readthedocs.io/en/latest/doc_tests/test_multiprocess/multiprocess.html).
+
+From what we could gather, the problem seemed to be a combination of how the
+browser drivers were being managed, due to the overhead of integrating Selenium
+Grid with Django, and `nose`. Going forward, Selenium Grid may have been a better
+fit with the Java programming language, as it was originally written in Java,
+and so may have had better support for parallelization -- a test framework such
+as TestNG, which is a testing framework for Java, may have also been another
+viable option, since it has built-in support and control for parallelization.
+However, this would require a complete rewrite of our test suite, and so was
+not a viable option.
+
+### Problem 2: CI support
+
+The second problem we faced was with our CI environment, and parallelization
+support. For context, our CI environment was using GitLab CI in a private
+runner. The stages of our CI pipeline were as follows:
+
+1. Linting
+2. Unit tests (SQLite)
+3. Unit tests (PostgreSQL)
+4. User interface tests
+
+The main problem came with the PostgreSQL step, as having multiple processes
+running tests in parallel, and each process using the same database, and the
+same tables, caused a lot of contention, and so Django raised a lot of database
+related errors. Namely, the following error was raised many times:
+
+```console
+  django.db.transaction.TransactionManagementError: An error occurred in the current transaction. You can't execute queries until the end of the 'atomic' block.
+```
+
+This error was raised because the tests were trying to save data to the same
+tables, all at the same time, and so the database was locking the tables, and
+not allowing any other process to save data to them, effectively giving us a
+deadlock scenario. A potential solution to this problem would be to declare
+atomic blocks in each of the offending test cases, so that duplicate data is
+not saved to the same tables, and so the database doesn't lock the tables;
+however, this would require quite a bit of changes to our test suite, and so
+was not a favourable option. For a more detailed explanation of the error, and
+a potential solution, you can read more about it [here](https://stackoverflow.com/questions/21458387/transactionmanagementerror-you-cant-execute-queries-until-the-end-of-the-atom).
+
+## Final remarks
+
+So, in conclusion, parallelization can be a great way to reduce testing times,
+but it's not without its problems, so, really, really ask yourself: do you
+honestly need parallelization, or do you just want to look cool (guilty)? In
+our case, we didn't really need it, as our test suite was relatively small,
+all completing under five minutes, and there really aren't any plans to expand
+our test suite by a considerable margin that would warrant an execution time
+minimization strategy, such as parallelization. This was a good exercise in
+learning more about parallelization, and the problems that can arise from it,
+but in the end, we decided to pass... _for now_. 👻
+
+I hope you found this post helpful, and that it gave you some insight into the
+world of parallelization. Until next time, happy testing!
+
+References:
+
+- [Django's TestCase documentation](https://docs.djangoproject.com/en/5.0/topics/testing/overview/#writing-tests)
+- [Django's StaticLiveServerTestCase documentation](https://docs.djangoproject.com/en/5.0/topics/testing/tools/#liveservertestcase)
+- [Selenium Grid in Docker documentation](https://github.com/SeleniumHQ/docker-selenium/blob/trunk/README.md)
+- [nose documentation](https://nose.readthedocs.io/en/latest/doc_tests/test_multiprocess/multiprocess.html)
+- [StackOverflow solution to the `TransactionManagementError`](https://stackoverflow.com/questions/21458387/transactionmanagementerror-you-cant-execute-queries-until-the-end-of-the-atom)
+- [Test Driven Development CircleCI](https://circleci.com/blog/test-driven-development-tdd/)

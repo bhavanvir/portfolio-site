@@ -1,0 +1,213 @@
+---
+title: "Performance Analysis of Database Caching versus In-Memory Caching"
+publishedAt: "2024-04-05"
+summary: "A detailed comparison of Redis and database caching solutions in Django applications, including implementation details, performance metrics, and considerations for choosing between them."
+---
+
+Django offers many [caching strategies](https://docs.djangoproject.com/en/5.0/topics/cache/#:~:text=For%20convenience%2C%20Django%20offers%20different,Squid%20and%20browser%2Dbased%20caches.),
+but most notably supports in-memory caches like Memcached and Redis, or
+database-centric caching solutions interfacing directly with your pre-defined
+backend. However, there are a couple of considerations you might want to take
+into account when choosing a caching solution. Below, I will give an analysis
+of my findings after implementing both caching with Redis and PostgreSQL/SQLite.
+
+## Benchmarking data
+
+All performance comparisons are made with the following data:
+
+- 431 archaeological sites
+- 585 excavation units
+- 585 levels and samples
+- 699,329 bones
+
+Using the above data, our baseline performance was ~6.5 seconds to load our
+landing page, and would only increase linearly in proportion to the number of sites.
+
+Using the Chrome Developer Tools, performance is measured against the largest
+contentful paint (LCP) metric, namely the time taken to first reach LCP, as it marks
+the point in the page load timeline when the main content has _likely_ loaded.
+According to [web.dev](<https://web.dev/articles/lcp#:~:text=Largest%20Contentful%20Paint%20(LCP)%20is,that%20the%20page%20is%20useful.>),
+LCP times under 2.5 seconds are considered "good" and times exceeding 4.0
+seconds are considered "needing improvement."
+
+With our time of ~6.5 seconds, we are well above the "needing improvement"
+threshold, and so we will be looking to improve our performance... somehow.
+
+## Redis
+
+Redis is a very popular and well-tested solution for caching frequently used
+data. It is a key-value database stored in memory, meaning faster lookup times
+both due to its simplicity and a much lower access time for memory as opposed
+to disk--even with fast solid-state drives, memory is closer to the CPU.
+
+### Prerequisites
+
+To set up Redis, I recommend first installing the following packages via the
+`pip` package manager:
+
+1. `lz4`
+2. `django-redis`
+
+LZ4 allows for key-value pair compression in your cache and is particularly
+fast when it comes to compression/decompression speeds, but when it comes to
+raw compression is worse than Gzip. However, Gzip does consume more of your
+CPU when compared to LZ4, so there is a trade-off to consider, and in our
+case, I prioritized speed and efficient CPU utilization.
+
+Django-Redis allows for greater low-level cache control, by offering additional
+functions such as `delete_patterns` and other native `redis-py` directives, as
+well as the ability to define your own compressor, just to name a few. The full
+list of advantages is listed [here](https://github.com/jazzband/django-redis?tab=readme-ov-file#why-use-django-redis).
+
+**Note**: Gzip for some reason doesn't work quite nicely when adding the
+compressor in the Django settings, as it notifies you that there is no such
+implementation available, but on the `django-redis` GitHub, it is clearly
+mentioned in the [README](https://github.com/jazzband/django-redis#compression-support)
+that it supports Gzip... 🤔
+
+When it comes to starting the Redis server, you can either spin up a container
+using Docker, which I did, or install the Redis server by following [these instructions](https://redis.io/docs/install/install-redis/install-redis-on-linux/).
+Below is an example container defined in a docker-compose.yml file:
+
+```docker
+  version: "3.8"
+
+  services:
+    zoodb_redis:
+      container_name: zoodb-redis
+      image: redis:alpine
+      ports:
+        - 6379:6379
+      volumes:
+        - zoodb_redis_data:/data
+
+  volumes:
+    zoodb_redis_data:
+```
+
+### Setup
+
+Redis allows for up to 16 (0-15) databases, each accessible by adding the
+database number after the final `/` in the Redis URL. This is important as you
+can have Redis act both as a message broker and cache, by simply indexing
+different databases. In the `redis-cli`, you can switch to different databases
+by typing `select <database number>`
+
+In the `settings.py` file, add the following lines to configure Redis as your
+cache:
+
+```python
+  CACHES = {
+      "default": {
+          "BACKEND": "django_redis.cache.RedisCache",
+          "LOCATION": "redis://zoodb-redis:6379/0",
+          "OPTIONS": {
+              'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+              "COMPRESSOR": "django_redis.compressors.lz4.Lz4Compressor",
+          }
+      }
+  }
+```
+
+**Note**: the `LOCATION` field uses our Redis container, `zoodb-redis`, as the
+host, so depending on your configuration this will have to be changed.
+
+### Performance
+
+We reached a final LCP load time of ~2.4 seconds, which is a ~61.4% performance
+improvement over our baseline.
+
+## Database caching
+
+Database caching allows you to use the same database you use for storing data,
+but also as a cache, by creating a separate cache table. One particular
+advantage of database caching is that it allows you to reduce the number of
+services you need when going to a production environment, but depending on the
+database you're using, can result in poor performance when it comes to cache
+(re-)building, due to the nature of databases being stored on disk. However,
+databases like PostgreSQL do offer in-memory caching solutions similar to
+that of Redis.
+
+### Setup
+
+In a production environment, we're using PostgreSQL, but for a local
+environment, by default, SQLite is being used.
+
+In the `settings.py` file, add the following lines to configure your database,
+i.e. PostgreSQL/SQLite, as your cache:
+
+```python
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache',
+        'TIMEOUT': None,
+        'OPTIONS': {
+            'MAX_ENTRIES': 10000
+        }
+    }
+}
+```
+
+**Note**: the `MAX_ENTRIES` field is **required** in our case, as by default
+database caching only allows for 300 keys in your cache, and have over 1800
+keys; keep in mind this number will only increase as more data is ingested, so
+set a number that is not expected to be reached any time soon, but be mindful,
+as you'll be consuming more storage space.
+
+### Performance
+
+The caching logic is virtually identical to our previous implementation.
+Ignoring SQLite performance as it wouldn't be used in a production environment,
+we achieved a final LCP load time of ~2.6 seconds, which is a ~59.1%
+performance improvement over our baseline.
+
+## Conclusion
+
+For all intents and purposes, the performance differences between using Redis
+and PostgreSQL as a cache are identical, so using either in a production
+environment **standalone** is sufficient. However, where the balance seems to
+tip in the favour of Redis over PostgreSQL is the usage of multiprocessing,
+namely either [Huey](https://huey.readthedocs.io/en/latest/django.html) or
+[Celery](https://docs.celeryq.dev/en/stable/). Both of these libraries act
+as a distributed task queue, allowing you to run background processes, that
+are separate from the main Django application.
+As I mentioned before, Redis can be used as either a cache or a message
+broker, which is a middleware component that acts as an intermediary for
+communication between distributed systems or applications. It facilitates
+the exchange of messages by receiving messages from producers (applications
+that send messages) and delivering them to consumers (applications that receive
+messages). Both Celery and Huey require message brokers to function, and
+typically either of these message brokers is used quite widely in the industry:
+
+- RabbitMQ
+- Redis
+
+[RabbitMQ](https://www.rabbitmq.com/) is quite complex and hard to set up, and
+for our purposes is frankly overkill. Since we already have exposure to setting
+up Redis, using it as a message broker is trivial, as we can simply set
+another database, for example, database 1, as the message broker, and another
+database, for example, database 0, as the cache.
+
+When it comes to using either Celery or Huey, see the following [article](https://www.untangled.dev/2020/07/01/huey-minimal-task-queue-django/)
+which does a much better job than I can in explaining the differences between
+the two. But mainly boils down to a couple of points:
+
+- Celery is "heavier" than Huey, requiring several extra packages
+- Celery is often overkill, as most of the time background tasks being
+  performed are quite simple, and in our case, all we want to do is offload cache
+  invalidation from Django
+- Celery's setup and usage get quite cumbersome, especially when setting up
+  `cron` jobs, as it requires the configuration of Celery Beat, which configures
+  your tasks periodically, whereas Huey just requires a function decorator with
+  your desired period as an argument
+
+## References
+
+- [Django Caching](https://docs.djangoproject.com/en/5.0/topics/cache/#:~:text=For%20convenience%2C%20Django%20offers%20different,Squid%20and%20browser%2Dbased%20caches.)
+- [web.dev Article on LCP](<https://web.dev/articles/lcp#:~:text=Largest%20Contentful%20Paint%20(LCP)%20is,that%20the%20page%20is%20useful.>)
+- [django-redis Documentation](https://github.com/jazzband/django-redis?tab=readme-ov-file#why-use-django-redis)
+- [Redis](https://redis.io/docs/install/install-redis/install-redis-on-linux/)
+- [Huey](https://huey.readthedocs.io/en/latest/django.html)
+- [Celery](https://docs.celeryq.dev/en/stable/)
+- [RabbitMQ](https://www.rabbitmq.com/)

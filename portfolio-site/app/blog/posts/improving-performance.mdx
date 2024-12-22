@@ -1,0 +1,204 @@
+---
+title: "Strategies to Increase Django Performance"
+publishedAt: "2024-03-01"
+summary: "A deep dive into practical strategies for improving Django application performance, including caching with Redis, query optimization, and monitoring tools."
+---
+
+During the development phase of let's say a web application, like ZooDB that
+uses the Django Python framework, performance wasn't front-of-mind in the early
+stages of the project. However, as the project matures and ships more and more
+features, and demands more and more from the database to pull content, the issue
+with performance tends to rear its ugly head, and no longer is the issue at the
+back of our mind, but now is at the forefront.
+
+Thankfully, there are a number of strategies we can employ when dealing with
+performance bottlenecks; namely in our case with ZooDB: excessive database
+queries. That poor, poor database! 😭
+
+For some context, let me first describe the issue that we were setting out
+to resolve.
+
+## Pinging the database
+
+As the scope of your project increases naturally over time, so will the size of
+your database; the more features you decide to add, the more data you will
+likely need to keep a hold of, and the more data you have, the more computations
+will come along with it.
+
+To put it in perspective, with ZooDB and a total of 431 archaeological sites,
+the number of database queries grew to just under 9,000! This was mostly in part
+to how we were rendering our content on the home page, via [Django Mixins](https://docs.djangoproject.com/en/5.0/topics/class-based-views/mixins/).
+On the home page, rather than just displaying the necessary information to the user,
+like site names, locations, etc. we were anticipating for the user to immediately
+start filtering: so instead of only loading certain information from the `Sites`
+model, we were pulling _every_ single field along with it. Upon closer inspection,
+this particular Mixin that was responsible for most of the issues, `SitesTableMixin`,
+was inherited in pretty much every single class-based view on the home page, and
+decoupling this would have been an absolute nightmare, and most likely would've
+broken more things than we could count.
+
+So to combat this, there are a couple of valid solutions, and in the coming
+sections, we'll talk more about the strategies we plan on employing to increase
+the performance of our application!
+
+## Caching
+
+Caching is a very powerful tool that can be used to store the results of a
+computation, or in our case, the results of a database query, so that the next
+time the same query is made, the results can be pulled from the cache, rather
+than the database. This is especially useful when the same query is made
+multiple times, and the results are not expected to change. In our case, the
+results of the `Sites` model are not expected to change frequently, so caching
+the results of the query is a good idea. And surprise, surprise, Django
+comes with a built-in caching system, which is very easy to use, but we decided
+to use [Redis](https://redis.io/) as our caching backend, as it is very fast and
+efficient, due to its in-memory nature.
+
+Notably, any valid caching solution must conform to the following rules, as roughly
+outlined by Dropbox's [caching guidelines](https://dropbox.tech/infrastructure/caching-in-theory-and-practice):
+
+1. **Correctness**: The cache must always be in a consistent state with the
+   database.
+2. **Performance**: The cache must be fast, and not slow down the application.
+3. **Scalability**: The cache must be able to handle the load of the application,
+   and be able to scale with it.
+
+The last two points are mostly a given when using Redis, but the first point
+is the most important, and the most challenging.
+
+For more information about our caching strategy, and how we implemented it, see
+Karan's fantastic, in-depth blog post [here](https://arcsoft.uvic.ca/log/2024-02-29-audit-logs-redis-caching-django/).
+
+### Added complexity using caching
+
+While caching is versatile and powerful addition, it does come with its own set
+of unique challenges, and its own set of footguns.
+
+For example, when using a caching strategy, you must always be aware of the
+state of the cache, and ensure that it is always consistent with the database.
+This can be a challenge when dealing with a large number of database queries,
+and a large number of cache keys. In our case, we have to be very careful to
+ensure that the cache was always in a consistent state with the database, and
+that the cache was always up to date. If not, we would run into what's called
+a "stale cache", where the cache is out of sync with the database, and the
+results of the query are not what we expect. This really degrades the user
+experience, and can lead to a lot of confusion and frustration.
+
+Tangentially related to this, is that it can be difficult to determine exactly
+_when_ to invalidate the cache. In our case, we don't want the cache to ever
+be fully purged after some time interval, as mentioned before the results of
+the `Sites` model, and other such models, are not expected to change
+frequently. However, we do want to invalidate the cache when a new site is
+added, or when a site is updated or deleted. So in this regard, we have to
+tread carefully and be mindful.
+
+## Offloading Django's caching burden using Celery
+
+Another strategy we can employ to increase performance is to offload long-running
+tasks from the main Django application, and run them in the background using
+[Celery](https://docs.celeryproject.org/en/stable/). This is especially useful
+when we want to perform tasks that are time-consuming, and that do not need to
+be executed immediately. This can be a huge performance boost, as it allows the
+main Django application to continue running, and it also allows us to scale the
+application more easily, as we can run the tasks on separate machines, or on
+separate processes.
+
+In our case with caching, we could use Celery to invalidate the cache when a
+new site is added, or when a site is updated or deleted. This would allow us to
+offload the task of invalidating the cache from the main Django application, and
+run it in the background, which would increase the performance of the application.
+
+## Using QuerySets
+
+Another strategy we already employed prior to caching was using [Django's
+`QuerySet` API](https://docs.djangoproject.com/en/5.0/ref/models/querysets/),
+which allows us to interact with the database using Python, rather than SQL.
+The benefits are evident when performing complex queries, or multiple queries
+at once.
+
+`QuerySets` are inherently "lazy," meaning that they are not evaluated until the
+results are needed. When we want to perform multiple queries at once, we can chain
+the queries together, and then evaluate them all at once, rather than having a series
+of "filtering" steps where we further refine each consecutive SQL response. This can
+be a huge performance boost, as it reduces the number of queries that need to be made,
+and it also reduces the amount of data that needs to be transferred between the database
+and the application, effectively increasing our throughput.
+
+## Okay, but how can I evaluate the performance gains?
+
+We used two tools to evaluate our baseline performance, and our performance after
+implementing some of the strategies mentioned above. These tools, notably the second
+one, were very useful in identifying performance bottlenecks, and determining which
+queries and views were taking the most time to execute; namely the `SitesTableMixin`
+that was briefly mentioned earlier.
+
+The first tool we used was [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/),
+which allowed us to inspect the queries that are being made to the database, and
+the time it takes to make those queries. This is especially useful when we want
+to identify performance bottlenecks, and determine which queries are taking the
+most time to execute.
+
+The second tool we used was [Django Silk](https://github.com/jazzband/django-silk),
+that allowed us to inspect the performance of our views, and determine which
+views are taking the most time to execute. Similar to the Debug Toolbar, but
+was used to primarily inspect the performance of our views, rather than the
+database interactions.
+
+We mainly used the Debug Toolbar to inspect the performance of our caching
+strategy, as it allowed us to quickly see the time taken to execute the database
+queries, as well as whether or not our caching implementation was actually working.
+Though, we did have a couple hiccups when it came to having the Debug Toolbar
+showing correctly. We found that adding these couple of lines in the `settings.py`
+file helped us out:
+
+```python
+if DEBUG:
+  def show_toolbar(request):
+    return True
+
+  DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK": show_toolbar,
+  }
+```
+
+**Note**: using this typically means there is an underlying issue with the
+application configuration, and should be used as a last resort.
+
+This short blurb forces the Debug Toolbar to show on every page, which is
+useful when inspecting the performance of our caching strategy, however,
+we noted some very long CPU times when refreshing the page, so be careful
+when using this approach.
+
+## Final remarks
+
+Whew... that was a lot! We found that using caching and `QuerySets` were very effective
+strategies in increasing the performance of our application. We found that
+caching was especially useful when we wanted to store the results of a query,
+and then use those results later on, and that `QuerySets` were especially useful
+when we wanted to perform complex queries, or when we wanted to perform multiple
+queries at once.
+
+Celery can also be a very useful tool when wanting to offload long-running tasks
+from the main Django application, and run them in the background. This can be
+especially useful when wanting to perform tasks that are time-consuming, and
+that do not need to be executed immediately, such as invalidating the cache when
+a new site is added, or when a site is updated or deleted. Though, this would
+require additional setup, and would add some complexity to the application.
+
+We also found that using the Debug Toolbar and Django Silk were very useful
+tools when evaluating the performance of our application, and that they allowed
+us to identify performance bottlenecks, and determine which queries and views
+were taking the most time to execute.
+
+I hope this blog post has been even _somewhat_ helpful, and that you can take
+away some strategies to increase the performance of your own Django application!
+
+## References
+
+- [Django Mixins](https://docs.djangoproject.com/en/5.0/topics/class-based-views/mixins/)
+- [Redis](https://redis.io/)
+- [Dropbox Infrastructure](https://dropbox.tech/infrastructure/caching-in-theory-and-practice)
+- [Celery](https://docs.celeryproject.org/en/stable/)
+- [Django's QuerySet API](https://docs.djangoproject.com/en/5.0/ref/models/querysets/)
+- [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/)
+- [Django Silk](https://github.com/jazzband/django-silk)
