@@ -102,7 +102,7 @@ export default function RenderResume() {
               variant="outline"
               className="w-full"
             >
-              <DownloadIcon className="mr-2 h-4 w-4" />
+              <DownloadIcon className="h-4 w-4" />
               Download Resume
             </Button>
           </div>
