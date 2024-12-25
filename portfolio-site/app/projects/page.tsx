@@ -38,7 +38,7 @@ export default function Projects() {
       github: "https://github.com/bhavanvir/workout-planner",
       description:
         "A web-based constraint satisfaction problem that generates a personalized workout schedule based on selected muscle groups, and utilizes a heuristic that optimizes based on maximal muscle recruitment. Each workout is accompanied by the exercise name, target muscles, and mechanics.",
-      tags: ["Python", "OR-Tools"],
+      tags: ["Python", "OR-Tools", "Streamlit"],
     },
     {
       id: 3,
@@ -47,7 +47,7 @@ export default function Projects() {
       github: "https://github.com/bhavanvir/day-trader",
       description:
         "A microservice based stock trading platform that allows users to buy and sell stocks in real-time by setting either market or limit orders, as well as manage their portfolio. A matching engine using a Pro-Rata algorithm is used to match buy and sell orders, and a RESTful API is used to communicate with the front-end, using minted session tokens for authentication.",
-      tags: ["Go", "PostgreSQL", "React"],
+      tags: ["Go", "Docker", "PostgreSQL", "React"],
     },
     {
       id: 4,
@@ -68,7 +68,7 @@ export default function Projects() {
       liveUrl: "https://www.singhsabha.net/",
       description:
         "A dynamic web application serving as a virtual hub for the Sikh community. Members can view upcoming events at the Gurdwara, book their own events, and explore educational resources about Sikhism, creating a modern connection to traditional practices.",
-      tags: ["Next.js", "Supabase", "Vercel", "Resend"],
+      tags: ["Next.js", "Supabase", "Vercel", "Resend", "Stripe"],
     },
     {
       id: 2,
