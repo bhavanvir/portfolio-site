@@ -88,7 +88,7 @@ export default function Home() {
       <div className="my-8 w-full border-t-2" />
 
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-        Latestest Blog Posts
+        Latest Blog Posts
       </h1>
       <p>{``}</p>
       <BlogPosts firstN={2} />
