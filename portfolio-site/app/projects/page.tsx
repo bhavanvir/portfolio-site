@@ -63,7 +63,7 @@ export default function Projects() {
   const freelanceProjects = [
     {
       id: 1,
-      title: "Gurdwara Singh Sabha of Victoria",
+      title: "Gurdwara Singh Sabha",
       github: "https://github.com/bhavanvir/singhsabha",
       liveUrl: "https://www.singhsabha.net/",
       description:
