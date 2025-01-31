@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
     default: "Bhavanvir Rai - Software Engineer",
-    template: "%s | Bhavanvir Rai - Software Engineer",
+    template: "%s | Bhavanvir Rai — Software Engineer",
   },
   description:
     "Bhavanvir Rai's personal website. Functions as a living portfolio.",
