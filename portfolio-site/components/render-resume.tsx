@@ -59,7 +59,7 @@ export default function RenderResume() {
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
         <CardTitle>Resume</CardTitle>
-        <CardDescription>View or download my resume</CardDescription>
+        <CardDescription>View or download my resume.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col items-center">
