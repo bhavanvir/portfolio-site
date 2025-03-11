@@ -66,7 +66,7 @@ function slugify(str: string) {
 
 function Blockquote({ children }: { children: React.ReactNode }) {
   return (
-    <blockquote className="border-l-4 border-gray-500 pl-4 italic">
+    <blockquote className="border-l-2 border-primary pl-4 italic text-muted-foreground">
       {children}
     </blockquote>
   );
