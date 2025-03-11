@@ -64,6 +64,14 @@ function slugify(str: string) {
     .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
+function Blockquote({ children }: { children: React.ReactNode }) {
+  return (
+    <blockquote className="border-l-4 border-gray-500 pl-4 italic">
+      {children}
+    </blockquote>
+  );
+}
+
 function createHeading(level: any) {
   const Heading = ({ children }: { children: any }) => {
     const slug = slugify(children);
@@ -97,6 +105,7 @@ const components = {
   a: CustomLink,
   code: Code,
   Table,
+  blockquote: Blockquote,
 };
 
 export function CustomMDX(props: any) {
