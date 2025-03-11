@@ -1,7 +1,11 @@
-import { notFound } from "next/navigation";
-import { CustomMDX } from "@/components/mdx";
-import { formatDate, getBlogPosts } from "../utils";
 import { baseUrl } from "@/app/sitemap";
+import { CustomMDX } from "@/components/mdx";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { formatDate, getBlogPosts } from "../utils";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -52,11 +56,20 @@ export function generateMetadata({ params }: { params: any }) {
 }
 
 export default function Blog({ params }: { params: any }) {
-  const post = getBlogPosts().find((post) => post.slug === params.slug);
+  const posts = getBlogPosts().sort(
+    (a, b) =>
+      new Date(b.metadata.publishedAt).getTime() -
+      new Date(a.metadata.publishedAt).getTime(),
+  );
 
-  if (!post) {
+  const currentIndex = posts.findIndex((post) => post.slug === params.slug);
+  if (currentIndex === -1) {
     notFound();
   }
+
+  const post = posts[currentIndex];
+  const prevPost = posts[currentIndex + 1];
+  const nextPost = posts[currentIndex - 1];
 
   return (
     <section>
@@ -93,6 +106,42 @@ export default function Blog({ params }: { params: any }) {
       <article className="prose">
         <CustomMDX source={post.content} />
       </article>
+
+      <div className="flex flex-col sm:flex-row justify-between gap-4 mt-8">
+        {prevPost ? (
+          <Link
+            href={`/blog/${prevPost.slug}`}
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "group w-full sm:w-auto justify-start",
+            )}
+          >
+            <ChevronLeftIcon className="mr-1 h-4 w-4 flex-shrink-0 transition-transform group-hover:-translate-x-0.5" />
+            <span className="truncate sm:max-w-[150px] w-full">
+              {prevPost.metadata.title}
+            </span>
+          </Link>
+        ) : (
+          <div className="hidden sm:block" />
+        )}
+
+        {nextPost ? (
+          <Link
+            href={`/blog/${nextPost.slug}`}
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "group w-full sm:w-auto justify-end",
+            )}
+          >
+            <span className="truncate sm:max-w-[150px] w-full">
+              {nextPost.metadata.title}
+            </span>
+            <ChevronRightIcon className="ml-1 h-4 w-4 flex-shrink-0 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        ) : (
+          <div className="hidden sm:block" />
+        )}
+      </div>
     </section>
   );
 }
