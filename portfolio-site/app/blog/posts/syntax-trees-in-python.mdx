@@ -1,10 +1,14 @@
 ---
 title: "Using syntax trees in Python"
 publishedAt: "2024-07-02"
-summary: "An exploration of abstract and concrete syntax trees in Python, with practical examples using 'ast' and 'LibCST'."
+summary: "An exploration of abstract and concrete syntax trees in Python, with practical examples using 'ast' and 'LibCST."
 ---
 
-I've recently been working on a project where I needed to parse and update Django model files by adding new fields. Initially, I used plain string manipulation for parsing, but it quickly became too complex and error-prone. To address this, I switched to using syntax trees, specifically concrete syntax trees (CSTs), for parsing. In this post, I'll discuss how I leveraged syntax trees in Python to handle Django model files more effectively.
+> _This blog post was written during my co-op at the University of Victoria
+> in 2024. The views expressed here are my own and do not necessarily reflect
+> those of the University. See [here](https://arcsoft.uvic.ca/log/2024-02-09-selenium-web-testing/) for the original post._
+
+Ive recently been working on a project where I needed to parse and update Django model files by adding new fields. Initially, I used plain string manipulation for parsing, but it quickly became too complex and error-prone. To address this, I switched to using syntax trees, specifically concrete syntax trees (CSTs), for parsing. In this post, I'll discuss how I leveraged syntax trees in Python to handle Django model files more effectively.
 
 For those unfamiliar with syntax trees, I'll provide a brief introduction to abstract syntax trees (ASTs), what they are and how they differ from concrete syntax trees (CSTs). I'll then demonstrate how to parse Python code into ASTs and CSTs using the built-in `ast` module and the `LibCST` library, respectively. To
 keep things more relevant to the work I've been doing, after the introduction to both ASTs and CSTs, I'll stick to using CSTs with `LibCST` for the remainder of the post. Bring your snorkel and let's dive in! 🤿
