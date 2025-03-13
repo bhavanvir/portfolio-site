@@ -107,7 +107,7 @@ export default function Home() {
       </div>
 
       <p className="leading-7 [&:not(:first-child)]:mt-6">
-        I&apos;m a <span className="underline">Full Stack Engineer</span> with a
+        I&apos;m a <span className="underline">Software Engineer</span> with a
         proven track record of enhancing application performance, optimizing
         data processing, and developing scalable, efficient systems.
       </p>
